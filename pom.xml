@@ -41,7 +41,7 @@
     </dependencyManagement>
 
     <modules>
-	    <module>mvc-admin</module>
+	    <module>mvc-web</module>
 		<module>mvc-framework</module>
 		<module>mvc-system</module>
 		<module>mvc-quartz</module>

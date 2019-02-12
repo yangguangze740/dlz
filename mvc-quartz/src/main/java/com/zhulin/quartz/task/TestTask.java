@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @author mvcboot
  */
 @Component("ryTask")
-public class RyTask
+public class TestTask
 {
     public void ryParams(String params)
     {

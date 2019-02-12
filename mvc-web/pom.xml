@@ -7,10 +7,11 @@
         <groupId>com.zhulin</groupId>
         <version>3.2</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 	<packaging>jar</packaging>
-    <artifactId>mvc-admin</artifactId>
-	
+    <artifactId>mvc-web</artifactId>
+
 	<description>web服务入口</description>
 
     <dependencies>

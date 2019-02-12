@@ -7,13 +7,11 @@
         <groupId>com.zhulin</groupId>
         <version>3.2</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
-    
     <artifactId>mvc-system</artifactId>
     
-    <description>
-	    system系统模块
-	</description>
+    <description>system系统模块</description>
 	
     <dependencies>
 		<!-- 通用工具-->
