@@ -36,6 +36,14 @@ public class Constants
      * 登录失败
      */
     public static final String LOGIN_FAIL = "Error";
+    /* 登录页面默认的Logo图片 */
+    public static final String UI_CONFIG_DEFAULT_LOGIN_IMAGE_FILE_NAME = "loginImage.png";
+    public static final String UI_CONFIG_DEFAULT_TITLE_ICO_FILE_NAME = "favicon.ico";
+    public static final Integer UI_CONFIG_DEFAULT_ID = 1;
+    public static final String UI_CONFIG_KEY = "ui";
+    public static final String UI_CONFIG_DEFAULT_TITLE_NAME = "通用后台管理系统";
+    public static final String UI_CONFIG_DEFAULT_LITTLE_TITLE = "通用后台管理系统";
+    public static final String UI_CONFIG_DEFAULT_SYSTEM_NAME = "通用后台管理系统";
 
     /**
      * 自动去除表前缀

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.zhulin.system.service.ISysConfigService;
 
 /**
- * RuoYi首创 html调用 thymeleaf 实现参数管理
+ * html调用thymeleaf实现参数管理
  * 
  * @author mvcboot
  */
@@ -18,7 +18,7 @@ public class ConfigService
     /**
      * 根据键名查询参数配置信息
      * 
-     * @param configName 参数名称
+     * @param configKey 参数名称
      * @return 参数键值
      */
     public String getKey(String configKey)

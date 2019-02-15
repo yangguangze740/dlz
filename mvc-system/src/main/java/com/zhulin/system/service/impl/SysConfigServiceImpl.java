@@ -46,7 +46,9 @@ public class SysConfigServiceImpl implements ISysConfigService
     {
         SysConfig config = new SysConfig();
         config.setConfigKey(configKey);
+
         SysConfig retConfig = configMapper.selectConfig(config);
+
         return StringUtils.isNotNull(retConfig) ? retConfig.getConfigValue() : "";
     }
 

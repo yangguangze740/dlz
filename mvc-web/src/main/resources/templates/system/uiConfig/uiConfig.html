@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								系统名：<input type="text" name="systemName"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:uiConfig:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:uiConfig:edit">-->
+					<!--<i class="fa fa-edit"></i> 修改-->
+				<!--</a>-->
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:uiConfig:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:uiConfig:export">-->
+						<!--<i class="fa fa-download"></i> 导出-->
+				 <!--</a>-->
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:uiConfig:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:uiConfig:remove')}]];
+        var prefix = ctx + "system/uiConfig";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "系统ui配置",
+				search: false,
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'uiConfigId', 
+					title : '',
+					visible: false
+				},
+				{
+					field : 'loginImage', 
+					title : '登录页面的图片',
+					sortable: true
+				},
+				{
+					field : 'systemName', 
+					title : '系统名',
+					sortable: true
+				},
+				{
+					field : 'uiTitleName', 
+					title : '系统页签title值',
+					sortable: true
+				},
+				{
+					field : 'faviconIco', 
+					title : 'ico文件',
+					sortable: true
+				},
+				{
+					field : 'createBy', 
+					title : '创建用户',
+					sortable: true
+				},
+				{
+					field : 'createTime', 
+					title : '创建时间',
+					sortable: true
+				},
+				{
+					field : 'updateBy', 
+					title : '修改用户',
+					sortable: true
+				},
+				{
+					field : 'updateTime', 
+					title : '修改用户时间',
+					sortable: true
+				},
+				{
+					field : 'littleTitle', 
+					title : '导航栏折叠后名称',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	// actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.uiConfigId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.uiConfigId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

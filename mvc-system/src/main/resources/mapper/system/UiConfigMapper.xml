@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhulin.system.mapper.UiConfigMapper">
+    
+    <resultMap type="UiConfig" id="UiConfigResult">
+        <result property="uiConfigId"    column="ui_config_id"    />
+        <result property="loginImage"    column="login_image"    />
+        <result property="systemName"    column="system_name"    />
+        <result property="uiTitleName"    column="ui_title_name"    />
+        <result property="faviconIco"    column="favicon_ico"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="littleTitle"    column="littleTitle"    />
+    </resultMap>
+	
+	<sql id="selectUiConfigVo">
+        select ui_config_id, login_image, system_name, ui_title_name, favicon_ico, create_by, create_time, update_by, update_time, littleTitle from sys_ui_config
+    </sql>
+	
+    <select id="selectUiConfigList" parameterType="UiConfig" resultMap="UiConfigResult">
+        <include refid="selectUiConfigVo"/>
+        <where>  
+            <if test="uiConfigId != null "> and ui_config_id = #{uiConfigId}</if>
+             <if test="loginImage != null  and loginImage != '' "> and login_image = #{loginImage}</if>
+             <if test="systemName != null  and systemName != '' "> and system_name = #{systemName}</if>
+             <if test="uiTitleName != null  and uiTitleName != '' "> and ui_title_name = #{uiTitleName}</if>
+             <if test="faviconIco != null  and faviconIco != '' "> and favicon_ico = #{faviconIco}</if>
+             <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="updateBy != null  and updateBy != '' "> and update_by = #{updateBy}</if>
+             <if test="updateTime != null "> and update_time = #{updateTime}</if>
+             <if test="littleTitle != null  and littleTitle != '' "> and littleTitle = #{littleTitle}</if>
+         </where>
+    </select>
+    
+    <select id="selectUiConfigById" parameterType="Integer" resultMap="UiConfigResult">
+        <include refid="selectUiConfigVo"/>
+        where ui_config_id = #{uiConfigId}
+    </select>
+        
+    <insert id="insertUiConfig" parameterType="UiConfig">
+        insert into sys_ui_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiConfigId != null  ">ui_config_id,</if>
+			<if test="loginImage != null  and loginImage != ''  ">login_image,</if>
+			<if test="systemName != null  and systemName != ''  ">system_name,</if>
+			<if test="uiTitleName != null  and uiTitleName != ''  ">ui_title_name,</if>
+			<if test="faviconIco != null  and faviconIco != ''  ">favicon_ico,</if>
+			<if test="createBy != null  and createBy != ''  ">create_by,</if>
+			create_time,
+			<if test="updateBy != null  and updateBy != ''  ">update_by,</if>
+			update_time,
+			<if test="littleTitle != null  and littleTitle != ''  ">littleTitle,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiConfigId != null  ">#{uiConfigId},</if>
+			<if test="loginImage != null  and loginImage != ''  ">#{loginImage},</if>
+			<if test="systemName != null  and systemName != ''  ">#{systemName},</if>
+			<if test="uiTitleName != null  and uiTitleName != ''  ">#{uiTitleName},</if>
+			<if test="faviconIco != null  and faviconIco != ''  ">#{faviconIco},</if>
+			<if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+            sysdate(),
+			<if test="updateBy != null  and updateBy != ''  ">#{updateBy},</if>
+            sysdate(),
+			<if test="littleTitle != null  and littleTitle != ''  ">#{littleTitle},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateUiConfig" parameterType="UiConfig">
+        update sys_ui_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="loginImage != null  and loginImage != ''  ">login_image = #{loginImage},</if>
+            <if test="systemName != null  and systemName != ''  ">system_name = #{systemName},</if>
+            <if test="uiTitleName != null  and uiTitleName != ''  ">ui_title_name = #{uiTitleName},</if>
+            <if test="faviconIco != null  and faviconIco != ''  ">favicon_ico = #{faviconIco},</if>
+            <if test="createBy != null  and createBy != ''  ">create_by = #{createBy},</if>
+            <if test="updateBy != null  and updateBy != ''  ">update_by = #{updateBy},</if>
+            <if test="updateTime != null  ">update_time = sysdate(),</if>
+            <if test="littleTitle != null  and littleTitle != ''  ">littleTitle = #{littleTitle},</if>
+        </trim>
+        where ui_config_id = #{uiConfigId}
+    </update>
+
+	<delete id="deleteUiConfigById" parameterType="Integer">
+        delete from sys_ui_config where ui_config_id = #{uiConfigId}
+    </delete>
+	
+    <delete id="deleteUiConfigByIds" parameterType="String">
+        delete from sys_ui_config where ui_config_id in 
+        <foreach item="uiConfigId" collection="array" open="(" separator="," close=")">
+            #{uiConfigId}
+        </foreach>
+    </delete>
+    
+</mapper>

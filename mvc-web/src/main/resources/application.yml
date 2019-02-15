@@ -14,7 +14,7 @@ ruoyi:
 # 开发环境配置
 server:
   # 服务端口
-  port: 80
+  port: 8080
   servlet:
     # 项目contextPath
     context-path: /
@@ -29,7 +29,7 @@ server:
 # 日志配置
 logging:
   level:
-    com.ruoyi: debug
+    com.zhulin: debug
     org.springframework: WARN
     org.spring.springboot.dao: debug
 
@@ -131,4 +131,4 @@ gen:
   # 自动去除表前缀，默认是true
   autoRemovePre: true
   # 表前缀(类名不会包含表前缀)
-  tablePrefix: bus_
+  tablePrefix: sys_
