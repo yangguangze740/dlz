@@ -14,6 +14,8 @@ public class FileStoreUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileStoreUtil.class);
 
     public static FileSaveResult saveSpringWebMultipartFile(String path, MultipartFile file, String filename) {
+        createDirTree(path);
+        
         if (Strings.isNullOrEmpty(filename)) {
             filename = file.getOriginalFilename();
         }
@@ -48,5 +50,13 @@ public class FileStoreUtil {
         }
 
         return result;
+    }
+
+    private static void createDirTree(String fullDirPath) {
+        File dirFile = new File(fullDirPath);
+
+        if (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
     }
 }
