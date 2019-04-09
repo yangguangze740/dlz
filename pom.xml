@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	
     <groupId>com.zhulin</groupId>
-    <artifactId>mvc-boot-quickstart</artifactId>
+    <artifactId>big-tree</artifactId>
     <version>3.2</version>
 
-    <name>mvc-boot-quickstart</name>
+    <name>big-tree</name>
 	<url>http://www.zhulin.xin</url>
-    <description>MVC后台管理系统模板</description>
+    <description>大连站绩效考核系统</description>
     
     <properties>
 	    <mvcbq.version>3.2</mvcbq.version>
