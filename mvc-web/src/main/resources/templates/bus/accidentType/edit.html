@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-accidentType-edit" th:object="${accidentType}">
+            <input id="accidentTypeId" name="accidentTypeId" th:field="*{accidentTypeId}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">事故类别名：</label>
+				<div class="col-sm-8">
+					<input id="accidentTypeName" name="accidentTypeName" th:field="*{accidentTypeName}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "bus/accidentType";
+		$("#form-accidentType-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-accidentType-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

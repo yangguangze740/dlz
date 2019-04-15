@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-accident-edit" th:object="${accident}">
+            <input id="accidentId" name="accidentId" th:field="*{accidentId}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">事故名：</label>
+				<div class="col-sm-8">
+					<input id="accidentName" name="accidentName" th:field="*{accidentName}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">事故类型</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="accidentTypeId" name="accidentTypeId" placeholder="请选择事故类型">
+						<option th:each="accidentType:${accidentTypes}"
+								th:value="${accidentType.accidentTypeId}"
+								th:text="${accidentType.accidentTypeName}"
+								th:selected="${accidentType.accidentTypeId == accident.accidentTypeId}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">惩罚措施</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="punishId" name="punishId" placeholder="请选择惩罚措施">
+						<option th:each="punish:${punishes}"
+								th:value="${punish.punishId}"
+								th:text="${punish.punishName}"
+								th:selected="${punish.punishId == accident.punishId}"></option>
+					</select>
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "bus/accident";
+		$("#form-accident-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-accident-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

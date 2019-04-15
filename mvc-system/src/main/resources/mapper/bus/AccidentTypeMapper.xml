@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhulin.bus.mapper.AccidentTypeMapper">
+
+    <resultMap type="AccidentType" id="AccidentTypeResult">
+        <result property="accidentTypeId"    column="accidentTypeId"    />
+        <result property="accidentTypeName"    column="accidentTypeName"    />
+        <result property="deleteFlag"    column="deleteFlag"    />
+        <result property="createTime"    column="createTime"    />
+        <result property="modifyTime"    column="modifyTime"    />
+        <result property="createUserId"    column="createUserId"    />
+        <result property="modifyUserId"    column="modifyUserId"    />
+    </resultMap>
+
+    <sql id="selectAccidentTypeVo">
+        select accidentTypeId, accidentTypeName, deleteFlag, createTime, modifyTime, createUserId, modifyUserId from jx_accident_type
+    </sql>
+
+    <select id="selectAccidentTypeList" parameterType="AccidentType" resultMap="AccidentTypeResult">
+        <include refid="selectAccidentTypeVo"/>
+        <where>
+            <if test="accidentTypeId != null  and accidentTypeId != '' "> and accidentTypeId = #{accidentTypeId}</if>
+            <if test="accidentTypeName != null  and accidentTypeName != '' "> and accidentTypeName = #{accidentTypeName}</if>
+            <if test="deleteFlag != null "> and deleteFlag = #{deleteFlag}</if>
+            <if test="createTime != null "> and createTime = #{createTime}</if>
+            <if test="modifyTime != null "> and modifyTime = #{modifyTime}</if>
+            <if test="createUserId != null  and createUserId != '' "> and createUserId = #{createUserId}</if>
+            <if test="modifyUserId != null  and modifyUserId != '' "> and modifyUserId = #{modifyUserId}</if>
+        </where>
+    </select>
+
+    <select id="selectAccidentTypeById" parameterType="String" resultMap="AccidentTypeResult">
+        <include refid="selectAccidentTypeVo"/>
+        where accidentTypeId = #{accidentTypeId}
+    </select>
+
+    <insert id="insertAccidentType" parameterType="AccidentType">
+        insert into jx_accident_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accidentTypeId != null  and accidentTypeId != ''  ">accidentTypeId,</if>
+            <if test="accidentTypeName != null  and accidentTypeName != ''  ">accidentTypeName,</if>
+            <if test="createUserId != null  and createUserId != ''  ">createUserId,</if>
+            <if test="modifyUserId != null  and modifyUserId != ''  ">modifyUserId,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accidentTypeId != null  and accidentTypeId != ''  ">#{accidentTypeId},</if>
+            <if test="accidentTypeName != null  and accidentTypeName != ''  ">#{accidentTypeName},</if>
+            <if test="deleteFlag != null  ">#{deleteFlag},</if>
+            <if test="createTime != null  ">#{createTime},</if>
+            <if test="modifyTime != null  ">#{modifyTime},</if>
+            <if test="createUserId != null  and createUserId != ''  ">#{createUserId},</if>
+            <if test="modifyUserId != null  and modifyUserId != ''  ">#{modifyUserId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAccidentType" parameterType="AccidentType">
+        update jx_accident_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="accidentTypeName != null  and accidentTypeName != ''  ">accidentTypeName = #{accidentTypeName},</if>
+            <if test="deleteFlag != null  ">deleteFlag = #{deleteFlag},</if>
+            <if test="createTime != null  ">createTime = #{createTime},</if>
+            <if test="modifyTime != null  ">modifyTime = #{modifyTime},</if>
+            <if test="createUserId != null  and createUserId != ''  ">createUserId = #{createUserId},</if>
+            <if test="modifyUserId != null  and modifyUserId != ''  ">modifyUserId = #{modifyUserId},</if>
+        </trim>
+        where accidentTypeId = #{accidentTypeId}
+    </update>
+
+    <delete id="deleteAccidentTypeById" parameterType="String">
+        delete from jx_accident_type where accidentTypeId = #{accidentTypeId}
+    </delete>
+
+    <delete id="deleteAccidentTypeByIds" parameterType="String">
+        delete from jx_accident_type where accidentTypeId in
+        <foreach item="accidentTypeId" collection="array" open="(" separator="," close=")">
+            #{accidentTypeId}
+        </foreach>
+    </delete>
+
+</mapper>
