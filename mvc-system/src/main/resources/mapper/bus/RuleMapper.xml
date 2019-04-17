@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhulin.bus.mapper.RuleMapper">
+    
+    <resultMap type="Rule" id="RuleResult">
+        <result property="ruleId"    column="ruleId"    />
+        <result property="ruleName"    column="ruleName"    />
+        <result property="ruleTypeId"    column="ruleTypeId"    />
+        <result property="ruleTypeName"    column="ruleTypeName"    />
+        <result property="score"    column="score"    />
+        <result property="scoreFlag"    column="scoreFlag"    />
+        <result property="deleteFlag"    column="deleteFlag"    />
+        <result property="modifyUserId"    column="modifyUserId"    />
+        <result property="createTime"    column="createTime"    />
+        <result property="createUserId"    column="createUserId"    />
+        <result property="modifyTime"    column="modifyTime"    />
+    </resultMap>
+	
+	<sql id="selectRuleVo">
+        SELECT
+            ruleId, ruleName, ruleTypeName, score
+        FROM
+            jx_rule R
+                LEFT JOIN
+            jx_rule_type RT ON R.ruleTypeId = RT.ruleTypeId
+    </sql>
+	
+    <select id="selectRuleList" parameterType="Rule" resultMap="RuleResult">
+        <include refid="selectRuleVo"/>
+        <where>  
+            <if test="ruleId != null  and ruleId != '' "> and ruleId = #{ruleId}</if>
+             <if test="ruleName != null  and ruleName != '' "> and ruleName = #{ruleName}</if>
+             <if test="ruleTypeId != null  and ruleTypeId != '' "> and ruleTypeId = #{ruleTypeId}</if>
+             <if test="score != null "> and score = #{score}</if>
+             <if test="scoreFlag != null "> and scoreFlag = #{scoreFlag}</if>
+             <if test="deleteFlag != null "> and deleteFlag = #{deleteFlag}</if>
+             <if test="modifyUserId != null  and modifyUserId != '' "> and modifyUserId = #{modifyUserId}</if>
+             <if test="createTime != null "> and createTime = #{createTime}</if>
+             <if test="createUserId != null  and createUserId != '' "> and createUserId = #{createUserId}</if>
+             <if test="modifyTime != null "> and modifyTime = #{modifyTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectRuleById" parameterType="String" resultMap="RuleResult">
+        <include refid="selectRuleVo"/>
+        where ruleId = #{ruleId}
+    </select>
+        
+    <insert id="insertRule" parameterType="Rule">
+        insert into jx_rule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ruleId != null  and ruleId != ''  ">ruleId,</if>
+			<if test="ruleName != null  and ruleName != ''  ">ruleName,</if>
+			<if test="ruleTypeId != null  and ruleTypeId != ''  ">ruleTypeId,</if>
+			<if test="score != null  ">score,</if>
+			<if test="scoreFlag != null  ">scoreFlag,</if>
+			<if test="deleteFlag != null  ">deleteFlag,</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">modifyUserId,</if>
+			<if test="createTime != null  ">createTime,</if>
+			<if test="createUserId != null  and createUserId != ''  ">createUserId,</if>
+			<if test="modifyTime != null  ">modifyTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ruleId != null  and ruleId != ''  ">#{ruleId},</if>
+			<if test="ruleName != null  and ruleName != ''  ">#{ruleName},</if>
+			<if test="ruleTypeId != null  and ruleTypeId != ''  ">#{ruleTypeId},</if>
+			<if test="score != null  ">#{score},</if>
+			<if test="scoreFlag != null  ">#{scoreFlag},</if>
+			<if test="deleteFlag != null  ">#{deleteFlag},</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">#{modifyUserId},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="createUserId != null  and createUserId != ''  ">#{createUserId},</if>
+			<if test="modifyTime != null  ">#{modifyTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateRule" parameterType="Rule">
+        update jx_rule
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ruleName != null  and ruleName != ''  ">ruleName = #{ruleName},</if>
+            <if test="ruleTypeId != null  and ruleTypeId != ''  ">ruleTypeId = #{ruleTypeId},</if>
+            <if test="score != null  ">score = #{score},</if>
+            <if test="scoreFlag != null  ">scoreFlag = #{scoreFlag},</if>
+            <if test="deleteFlag != null  ">deleteFlag = #{deleteFlag},</if>
+            <if test="modifyUserId != null  and modifyUserId != ''  ">modifyUserId = #{modifyUserId},</if>
+            <if test="createTime != null  ">createTime = #{createTime},</if>
+            <if test="createUserId != null  and createUserId != ''  ">createUserId = #{createUserId},</if>
+            <if test="modifyTime != null  ">modifyTime = #{modifyTime},</if>
+        </trim>
+        where ruleId = #{ruleId}
+    </update>
+
+	<delete id="deleteRuleById" parameterType="String">
+        delete from jx_rule where ruleId = #{ruleId}
+    </delete>
+	
+    <delete id="deleteRuleByIds" parameterType="String">
+        delete from jx_rule where ruleId in 
+        <foreach item="ruleId" collection="array" open="(" separator="," close=")">
+            #{ruleId}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhulin.bus.mapper.RuleTypeMapper">
+    
+    <resultMap type="RuleType" id="RuleTypeResult">
+        <result property="ruleTypeId"    column="ruleTypeId"    />
+        <result property="ruleTypeName"    column="ruleTypeName"    />
+        <result property="deleteFlag"    column="deleteFlag"    />
+        <result property="modifyUserId"    column="modifyUserId"    />
+        <result property="createTime"    column="createTime"    />
+        <result property="createUserId"    column="createUserId"    />
+        <result property="modifyTime"    column="modifyTime"    />
+    </resultMap>
+	
+	<sql id="selectRuleTypeVo">
+        select ruleTypeId, ruleTypeName, deleteFlag, modifyUserId, createTime, createUserId, modifyTime from jx_rule_type
+    </sql>
+	
+    <select id="selectRuleTypeList" parameterType="RuleType" resultMap="RuleTypeResult">
+        <include refid="selectRuleTypeVo"/>
+        <where>  
+            <if test="ruleTypeId != null  and ruleTypeId != '' "> and ruleTypeId = #{ruleTypeId}</if>
+             <if test="ruleTypeName != null  and ruleTypeName != '' "> and ruleTypeName = #{ruleTypeName}</if>
+             <if test="deleteFlag != null "> and deleteFlag = #{deleteFlag}</if>
+             <if test="modifyUserId != null  and modifyUserId != '' "> and modifyUserId = #{modifyUserId}</if>
+             <if test="createTime != null "> and createTime = #{createTime}</if>
+             <if test="createUserId != null  and createUserId != '' "> and createUserId = #{createUserId}</if>
+             <if test="modifyTime != null "> and modifyTime = #{modifyTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectRuleTypeById" parameterType="String" resultMap="RuleTypeResult">
+        <include refid="selectRuleTypeVo"/>
+        where ruleTypeId = #{ruleTypeId}
+    </select>
+        
+    <insert id="insertRuleType" parameterType="RuleType">
+        insert into jx_rule_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ruleTypeId != null  and ruleTypeId != ''  ">ruleTypeId,</if>
+			<if test="ruleTypeName != null  and ruleTypeName != ''  ">ruleTypeName,</if>
+			<if test="deleteFlag != null  ">deleteFlag,</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">modifyUserId,</if>
+			<if test="createTime != null  ">createTime,</if>
+			<if test="createUserId != null  and createUserId != ''  ">createUserId,</if>
+			<if test="modifyTime != null  ">modifyTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ruleTypeId != null  and ruleTypeId != ''  ">#{ruleTypeId},</if>
+			<if test="ruleTypeName != null  and ruleTypeName != ''  ">#{ruleTypeName},</if>
+			<if test="deleteFlag != null  ">#{deleteFlag},</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">#{modifyUserId},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="createUserId != null  and createUserId != ''  ">#{createUserId},</if>
+			<if test="modifyTime != null  ">#{modifyTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateRuleType" parameterType="RuleType">
+        update jx_rule_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ruleTypeName != null  and ruleTypeName != ''  ">ruleTypeName = #{ruleTypeName},</if>
+            <if test="deleteFlag != null  ">deleteFlag = #{deleteFlag},</if>
+            <if test="modifyUserId != null  and modifyUserId != ''  ">modifyUserId = #{modifyUserId},</if>
+            <if test="createTime != null  ">createTime = #{createTime},</if>
+            <if test="createUserId != null  and createUserId != ''  ">createUserId = #{createUserId},</if>
+            <if test="modifyTime != null  ">modifyTime = #{modifyTime},</if>
+        </trim>
+        where ruleTypeId = #{ruleTypeId}
+    </update>
+
+	<delete id="deleteRuleTypeById" parameterType="String">
+        delete from jx_rule_type where ruleTypeId = #{ruleTypeId}
+    </delete>
+	
+    <delete id="deleteRuleTypeByIds" parameterType="String">
+        delete from jx_rule_type where ruleTypeId in 
+        <foreach item="ruleTypeId" collection="array" open="(" separator="," close=")">
+            #{ruleTypeId}
+        </foreach>
+    </delete>
+    
+</mapper>
