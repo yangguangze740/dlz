@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-accidentRecord-edit" th:object="${accidentRecord}">
+            <input id="accidentRecordId" name="accidentRecordId" th:field="*{accidentRecordId}"  type="hidden">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">用户</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="userId" name="userId" placeholder="请选择用户">
+						<option th:each="sysUser:${sysUsers}"
+								th:value="${sysUser.userId}"
+								th:text="${sysUser.userName}"
+								th:selected="${sysUser.userId == accidentRecord.userId}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">事故</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="accidentId" name="accidentId" placeholder="请选择事故">
+						<option th:each="accident:${accidents}"
+								th:value="${accident.accidentId}"
+								th:text="${accident.accidentName}"
+								th:selected="${accident.accidentId == accidentRecord.accidentId}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">处罚开始时间/月：</label>
+				<div class="col-sm-8">
+					<input id="startTime" name="startTime" th:field="*{startTime}" class="form-control" type="date">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">事故描述：</label>
+				<div class="col-sm-8">
+					<textarea id="accidentDescription" name="accidentDescription" th:field="*{accidentDescription}" class="form-control"></textarea>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<textarea id="remarks" name="remarks" th:field="*{remarks}" class="form-control"></textarea>
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "bus/accidentRecord";
+		$("#form-accidentRecord-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-accidentRecord-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

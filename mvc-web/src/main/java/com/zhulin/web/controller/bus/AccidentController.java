@@ -30,7 +30,7 @@ import com.zhulin.common.utils.poi.ExcelUtil;
  * 事故管理 信息操作处理
  * 
  * @author zhulin
- * @date 2019-04-11
+ * @date 2019-04-19
  */
 @Controller
 @RequestMapping("/bus/accident")
@@ -85,12 +85,11 @@ public class AccidentController extends BaseController
 	@GetMapping("/add")
 	public String add(Model model)
 	{
-	    List<AccidentType> accidentTypes = accidentTypeService.selectAccidentTypeList(new AccidentType());
-	    List<Punish> punishes = punishService.selectPunishList(new Punish());
+		List<AccidentType> accidentTypes = accidentTypeService.selectAccidentTypeList(new AccidentType());
+		List<Punish> punishes = punishService.selectPunishList(new Punish());
 
 		model.addAttribute("accidentTypes", accidentTypes);
-		model.addAttribute("punishes" , punishes);
-
+		model.addAttribute("punishes", punishes);
 		return prefix + "/add";
 	}
 	
@@ -119,8 +118,9 @@ public class AccidentController extends BaseController
 
 		List<AccidentType> accidentTypes = accidentTypeService.selectAccidentTypeList(new AccidentType());
 		List<Punish> punishes = punishService.selectPunishList(new Punish());
+
 		model.addAttribute("accidentTypes", accidentTypes);
-		mmap.addAttribute("punishes", punishes);
+		model.addAttribute("punishes", punishes);
 	    return prefix + "/edit";
 	}
 	
@@ -148,5 +148,5 @@ public class AccidentController extends BaseController
 	{		
 		return toAjax(accidentService.deleteAccidentByIds(ids));
 	}
-
+	
 }

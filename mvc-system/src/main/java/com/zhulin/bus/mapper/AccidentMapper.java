@@ -7,7 +7,7 @@ import java.util.List;
  * 事故管理 数据层
  * 
  * @author zhulin
- * @date 2019-04-11
+ * @date 2019-04-19
  */
 public interface AccidentMapper 
 {

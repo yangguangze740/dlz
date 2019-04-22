@@ -11,7 +11,7 @@ import java.sql.Date;
  * 事故管理表 jx_accident
  * 
  * @author zhulin
- * @date 2019-04-11
+ * @date 2019-04-19
  */
 public class Accident extends BaseEntity
 {
@@ -23,8 +23,6 @@ public class Accident extends BaseEntity
 	private String accidentName;
 	/** 事故类别 */
 	private String accidentTypeId;
-	/** 事故类别名 */
-	private String accidentTypeName;
 	/**  */
 	private Date createTime;
 	/**  */
@@ -35,8 +33,18 @@ public class Accident extends BaseEntity
 	private String modifyUserId;
 	/**  */
 	private Integer deleteFlag;
+	/** 惩罚id */
 	private String punishId;
+	private String accidentTypeName;
 	private String punishName;
+
+	public String getAccidentTypeName() {
+		return accidentTypeName;
+	}
+
+	public void setAccidentTypeName(String accidentTypeName) {
+		this.accidentTypeName = accidentTypeName;
+	}
 
 	public String getPunishName() {
 		return punishName;
@@ -44,14 +52,6 @@ public class Accident extends BaseEntity
 
 	public void setPunishName(String punishName) {
 		this.punishName = punishName;
-	}
-
-	public String getPunishId() {
-		return punishId;
-	}
-
-	public void setPunishId(String punishId) {
-		this.punishId = punishId;
 	}
 
 	public void setAccidentId(String accidentId)
@@ -80,15 +80,6 @@ public class Accident extends BaseEntity
 	public String getAccidentTypeId() 
 	{
 		return accidentTypeId;
-	}
-	public void setAccidentTypeName(String accidentTypeName) 
-	{
-		this.accidentTypeName = accidentTypeName;
-	}
-
-	public String getAccidentTypeName() 
-	{
-		return accidentTypeName;
 	}
 	public void setCreateTime(Date createTime) 
 	{
@@ -135,20 +126,27 @@ public class Accident extends BaseEntity
 	{
 		return deleteFlag;
 	}
+	public void setPunishId(String punishId) 
+	{
+		this.punishId = punishId;
+	}
+
+	public String getPunishId() 
+	{
+		return punishId;
+	}
 
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
             .append("accidentId", getAccidentId())
             .append("accidentName", getAccidentName())
             .append("accidentTypeId", getAccidentTypeId())
-            .append("accidentTypeName", getAccidentTypeName())
             .append("createTime", getCreateTime())
             .append("modifyTime", getModifyTime())
             .append("createUserId", getCreateUserId())
             .append("modifyUserId", getModifyUserId())
             .append("deleteFlag", getDeleteFlag())
-			.append("punishId", getPunishId())
-			.append("punishName", getPunishName())
+            .append("punishId", getPunishId())
             .toString();
     }
 }

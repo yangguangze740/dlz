@@ -11,7 +11,7 @@ import java.sql.Date;
  * 规则类型管理表 jx_rule_type
  * 
  * @author zhulin
- * @date 2019-04-17
+ * @date 2019-04-18
  */
 public class RuleType extends BaseEntity
 {
@@ -31,6 +31,7 @@ public class RuleType extends BaseEntity
 	private String createUserId;
 	/**  */
 	private Date modifyTime;
+
 
 	public void setRuleTypeId(String ruleTypeId) 
 	{

@@ -14,7 +14,7 @@ import com.zhulin.common.support.Convert;
  * 规则类型管理 服务层实现
  * 
  * @author zhulin
- * @date 2019-04-17
+ * @date 2019-04-18
  */
 @Service
 public class RuleTypeServiceImpl implements IRuleTypeService 

@@ -80,4 +80,5 @@ public interface SysPostMapper
      * @return 结果
      */
     public SysPost checkPostCodeUnique(String postCode);
+
 }

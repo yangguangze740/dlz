@@ -14,7 +14,7 @@ import com.zhulin.common.support.Convert;
  * 事故管理 服务层实现
  * 
  * @author zhulin
- * @date 2019-04-11
+ * @date 2019-04-19
  */
 @Service
 public class AccidentServiceImpl implements IAccidentService 

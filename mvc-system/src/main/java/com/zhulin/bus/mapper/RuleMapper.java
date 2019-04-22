@@ -7,7 +7,7 @@ import java.util.List;
  * 规则管理 数据层
  * 
  * @author zhulin
- * @date 2019-04-17
+ * @date 2019-04-19
  */
 public interface RuleMapper 
 {

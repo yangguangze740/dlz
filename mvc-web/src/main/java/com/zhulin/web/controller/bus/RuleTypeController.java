@@ -25,7 +25,7 @@ import com.zhulin.common.utils.poi.ExcelUtil;
  * 规则类型管理 信息操作处理
  * 
  * @author zhulin
- * @date 2019-04-17
+ * @date 2019-04-18
  */
 @Controller
 @RequestMapping("/bus/ruleType")
@@ -90,6 +90,7 @@ public class RuleTypeController extends BaseController
 	{
 		ruleType.setCreateUserId(String.valueOf(ShiroUtils.getUserId()));
 		ruleType.setModifyUserId(String.valueOf(ShiroUtils.getUserId()));
+
 		return toAjax(ruleTypeService.insertRuleType(ruleType));
 	}
 

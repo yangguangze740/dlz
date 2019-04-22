@@ -5,50 +5,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.zhulin.bus.mapper.PunishMapper">
     
     <resultMap type="Punish" id="PunishResult">
-        <result property="punishId"    column="punishId"    />
-        <result property="punishName"    column="punishName"    />
-        <result property="deleteFlag"    column="deleteFlag"    />
-        <result property="monthLength"    column="monthLength"    />
-        <result property="createUserId"    column="createUserId"    />
-        <result property="modifyUserId"    column="modifyUserId"    />
-        <result property="createTime"    column="createTime"    />
-        <result property="modifyTime"    column="modifyTime"    />
+        <result property="punishId"    column="punish_id"    />
+        <result property="punishName"    column="punish_name"    />
+        <result property="deleteFlag"    column="delete_flag"    />
+        <result property="monthLength"    column="month_length"    />
+        <result property="createUserId"    column="create_user_id"    />
+        <result property="modifyUserId"    column="modify_user_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyTime"    column="modify_time"    />
     </resultMap>
 	
 	<sql id="selectPunishVo">
-        select punishId, punishName, deleteFlag, monthLength, createUserId, modifyUserId, createTime, modifyTime from jx_punish
+        select punish_id, punish_name, delete_flag, month_length, create_user_id, modify_user_id, create_time, modify_time from jx_punish
     </sql>
 	
     <select id="selectPunishList" parameterType="Punish" resultMap="PunishResult">
         <include refid="selectPunishVo"/>
         <where>  
-            <if test="punishId != null  and punishId != '' "> and punishId = #{punishId}</if>
-             <if test="punishName != null  and punishName != '' "> and punishName = #{punishName}</if>
-             <if test="deleteFlag != null "> and deleteFlag = #{deleteFlag}</if>
-             <if test="monthLength != null "> and monthLength = #{monthLength}</if>
-             <if test="createUserId != null  and createUserId != '' "> and createUserId = #{createUserId}</if>
-             <if test="modifyUserId != null  and modifyUserId != '' "> and modifyUserId = #{modifyUserId}</if>
-             <if test="createTime != null "> and createTime = #{createTime}</if>
-             <if test="modifyTime != null "> and modifyTime = #{modifyTime}</if>
+            <if test="punishId != null  and punishId != '' "> and punish_id = #{punishId}</if>
+             <if test="punishName != null  and punishName != '' "> and punish_name = #{punishName}</if>
+             <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
+             <if test="monthLength != null "> and month_length = #{monthLength}</if>
+             <if test="createUserId != null  and createUserId != '' "> and create_user_id = #{createUserId}</if>
+             <if test="modifyUserId != null  and modifyUserId != '' "> and modify_user_id = #{modifyUserId}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
          </where>
     </select>
     
     <select id="selectPunishById" parameterType="String" resultMap="PunishResult">
         <include refid="selectPunishVo"/>
-        where punishId = #{punishId}
+        where punish_id = #{punishId}
     </select>
         
     <insert id="insertPunish" parameterType="Punish">
         insert into jx_punish
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="punishId != null  and punishId != ''  ">punishId,</if>
-			<if test="punishName != null  and punishName != ''  ">punishName,</if>
-			<if test="deleteFlag != null  ">deleteFlag,</if>
-			<if test="monthLength != null  ">monthLength,</if>
-			<if test="createUserId != null  and createUserId != ''  ">createUserId,</if>
-			<if test="modifyUserId != null  and modifyUserId != ''  ">modifyUserId,</if>
-			<if test="createTime != null  ">createTime,</if>
-			<if test="modifyTime != null  ">modifyTime,</if>
+			<if test="punishId != null  and punishId != ''  ">punish_id,</if>
+			<if test="punishName != null  and punishName != ''  ">punish_name,</if>
+			<if test="deleteFlag != null  ">delete_flag,</if>
+			<if test="monthLength != null  ">month_length,</if>
+			<if test="createUserId != null  and createUserId != ''  ">create_user_id,</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">modify_user_id,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="modifyTime != null  ">modify_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="punishId != null  and punishId != ''  ">#{punishId},</if>
@@ -65,19 +65,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updatePunish" parameterType="Punish">
         update jx_punish
         <trim prefix="SET" suffixOverrides=",">
-            <if test="punishName != null  and punishName != ''  ">punishName = #{punishName},</if>
-            <if test="monthLength != null  ">monthLength = #{monthLength},</if>
-            <if test="modifyUserId != null  and modifyUserId != ''  ">modifyUserId = #{modifyUserId},</if>
+            <if test="punishName != null  and punishName != ''  ">punish_name = #{punishName},</if>
+            <if test="deleteFlag != null  ">delete_flag = #{deleteFlag},</if>
+            <if test="monthLength != null  ">month_length = #{monthLength},</if>
+            <if test="createUserId != null  and createUserId != ''  ">create_user_id = #{createUserId},</if>
+            <if test="modifyUserId != null  and modifyUserId != ''  ">modify_user_id = #{modifyUserId},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="modifyTime != null  ">modify_time = #{modifyTime},</if>
         </trim>
-        where punishId = #{punishId}
+        where punish_id = #{punishId}
     </update>
 
 	<delete id="deletePunishById" parameterType="String">
-        delete from jx_punish where punishId = #{punishId}
+        delete from jx_punish where punish_id = #{punishId}
     </delete>
 	
     <delete id="deletePunishByIds" parameterType="String">
-        delete from jx_punish where punishId in 
+        delete from jx_punish where punish_id in 
         <foreach item="punishId" collection="array" open="(" separator="," close=")">
             #{punishId}
         </foreach>

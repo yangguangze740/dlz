@@ -25,7 +25,7 @@ import com.zhulin.common.utils.poi.ExcelUtil;
  * 惩罚管理 信息操作处理
  * 
  * @author zhulin
- * @date 2019-04-15
+ * @date 2019-04-18
  */
 @Controller
 @RequestMapping("/bus/punish")
@@ -90,6 +90,7 @@ public class PunishController extends BaseController
 	{
 		punish.setCreateUserId(String.valueOf(ShiroUtils.getUserId()));
 		punish.setModifyUserId(String.valueOf(ShiroUtils.getUserId()));
+
 		return toAjax(punishService.insertPunish(punish));
 	}
 

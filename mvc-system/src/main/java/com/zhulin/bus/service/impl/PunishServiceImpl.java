@@ -14,7 +14,7 @@ import com.zhulin.common.support.Convert;
  * 惩罚管理 服务层实现
  * 
  * @author zhulin
- * @date 2019-04-15
+ * @date 2019-04-18
  */
 @Service
 public class PunishServiceImpl implements IPunishService 
@@ -56,7 +56,8 @@ public class PunishServiceImpl implements IPunishService
 	public int insertPunish(Punish punish)
 	{
 		punish.setPunishId(PrimaryKeyUtil.uuidPrimaryKey());
-	    return punishMapper.insertPunish(punish);
+
+		return punishMapper.insertPunish(punish);
 	}
 	
 	/**
@@ -68,7 +69,7 @@ public class PunishServiceImpl implements IPunishService
 	@Override
 	public int updatePunish(Punish punish)
 	{
-		return punishMapper.updatePunish(punish);
+	    return punishMapper.updatePunish(punish);
 	}
 
 	/**

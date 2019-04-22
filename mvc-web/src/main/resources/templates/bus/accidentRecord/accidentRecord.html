@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								用户名称：<input type="text" name="userName"/>
+							</li>
+
+							<li>
+								部门：<input type="text" name="deptName"/>
+							</li>
+
+							<li>
+								处罚方法：<input type="text" name="punishName"/>
+							</li>
+
+							<li>
+								处罚开始时间：<input type="text" name="startTime"/>
+							</li>
+
+							<li>
+								处罚结束时间：<input type="text" name="stopTime"/>
+							</li>
+
+							<li>
+								事故类型：<input type="text" name="accidentTypeName"/>
+							</li>
+
+							<li>
+								事故：<input type="text" name="accidentName"/>
+							</li>
+
+							<li>
+								事故描述：<input type="text" name="accidentDescription"/>
+							</li>
+
+							<li>
+								备注：<input type="text" name="remarks"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="bus:accidentRecord:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="bus:accidentRecord:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="bus:accidentRecord:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="bus:accidentRecord:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('bus:accidentRecord:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('bus:accidentRecord:remove')}]];
+        var prefix = ctx + "bus/accidentRecord";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "事故记录",
+				search: false,
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'userName',
+					title : '用户名称’',
+					visible: false
+				},
+				{
+					field : 'deptName',
+					title : '部门',
+					sortable: true
+				},
+				{
+					field : 'punishName',
+					title : '处罚方法',
+					sortable: true
+				},
+				{
+					field : 'startTime', 
+					title : '处罚开始时间',
+					sortable: true
+				},
+				{
+					field : 'stopTime', 
+					title : '处罚结束时间',
+					sortable: true
+				},
+				{
+					field : 'accidentTypeName',
+					title : '事故类型',
+					sortable: true
+				},
+				{
+					field : 'accidentName',
+					title : '事故',
+					sortable: true
+				},
+				{
+					field : 'accidentDescription', 
+					title : '事故描述',
+					sortable: true
+				},
+				{
+					field : 'remarks', 
+					title : '备注',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.accidentRecordId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.accidentRecordId + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

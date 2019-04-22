@@ -11,7 +11,7 @@ import java.sql.Date;
  * 惩罚管理表 jx_punish
  * 
  * @author zhulin
- * @date 2019-04-15
+ * @date 2019-04-18
  */
 public class Punish extends BaseEntity
 {

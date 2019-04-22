@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhulin.bus.mapper.AccidentRecordMapper">
+    
+    <resultMap type="AccidentRecord" id="AccidentRecordResult">
+        <result property="accidentRecordId"    column="accident_record_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="postId"    column="post_id"    />
+        <result property="postName"    column="post_name"    />
+        <result property="punishId"    column="punish_id"    />
+        <result property="punishName"    column="punish_name"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="stopTime"    column="stop_time"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="deleteFlag"    column="delete_flag"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="accidentTypeId"    column="accident_type_id"    />
+        <result property="accidentTypeName"    column="accident_type_name"    />
+        <result property="accidentId"    column="accident_id"    />
+        <result property="accidentName"    column="accident_name"    />
+        <result property="accidentDescription"    column="accident_description"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="createUserId"    column="create_user_id"    />
+        <result property="modifyUserId"    column="modify_user_id"    />
+        <result property="modifyTime"    column="modify_time"    />
+    </resultMap>
+	
+	<sql id="selectAccidentRecordVo">
+    SELECT
+        accident_record_id,
+        dept_name,
+        punish_name,
+        start_time,
+        stop_time,
+        user_name,
+        accident_type_name,
+        accident_name,
+        accident_description,
+        remarks
+    FROM
+        jx_accident_record AR
+            LEFT JOIN
+        sys_dept D ON AR.dept_id = D.dept_id
+            LEFT JOIN
+        jx_punish P ON AR.punish_id = P.punish_id
+            LEFT JOIN
+        jx_accident_type AP ON AR.accident_type_id = AP.accident_type_id
+            LEFT JOIN
+        jx_accident A ON AR.accident_id = A.accident_id
+            LEFT JOIN
+        sys_user U ON AR.user_id = U.user_id
+    </sql>
+	
+    <select id="selectAccidentRecordList" parameterType="AccidentRecord" resultMap="AccidentRecordResult">
+        <include refid="selectAccidentRecordVo"/>
+        <where>  
+            <if test="accidentRecordId != null  and accidentRecordId != '' "> and accident_record_id = #{accidentRecordId}</if>
+             <if test="deptId != null  and deptId != '' "> and dept_id = #{deptId}</if>
+             <if test="postId != null  and postId != '' "> and post_id = #{postId}</if>
+             <if test="punishId != null  and punishId != '' "> and punish_id = #{punishId}</if>
+             <if test="startTime != null "> and start_time = #{startTime}</if>
+             <if test="stopTime != null "> and stop_time = #{stopTime}</if>
+             <if test="userId != null  and userId != '' "> and user_id = #{userId}</if>
+             <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="accidentTypeId != null  and accidentTypeId != '' "> and accident_type_id = #{accidentTypeId}</if>
+             <if test="accidentId != null  and accidentId != '' "> and accident_id = #{accidentId}</if>
+             <if test="accidentDescription != null  and accidentDescription != '' "> and accident_description = #{accidentDescription}</if>
+             <if test="remarks != null  and remarks != '' "> and remarks = #{remarks}</if>
+             <if test="createUserId != null  and createUserId != '' "> and create_user_id = #{createUserId}</if>
+             <if test="modifyUserId != null  and modifyUserId != '' "> and modify_user_id = #{modifyUserId}</if>
+             <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectAccidentRecordById" parameterType="String" resultMap="AccidentRecordResult">
+        <include refid="selectAccidentRecordVo"/>
+        where accident_record_id = #{accidentRecordId}
+    </select>
+        
+    <insert id="insertAccidentRecord" parameterType="AccidentRecord">
+        insert into jx_accident_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="accidentRecordId != null  and accidentRecordId != ''  ">accident_record_id,</if>
+			<if test="deptId != null  and deptId != ''  ">dept_id,</if>
+			<if test="postId != null  and postId != ''  ">post_id,</if>
+			<if test="punishId != null  and punishId != ''  ">punish_id,</if>
+			<if test="startTime != null  ">start_time,</if>
+			<if test="stopTime != null  ">stop_time,</if>
+			<if test="userId != null  and userId != ''  ">user_id,</if>
+			<if test="deleteFlag != null  ">delete_flag,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="accidentTypeId != null  and accidentTypeId != ''  ">accident_type_id,</if>
+			<if test="accidentId != null  and accidentId != ''  ">accident_id,</if>
+			<if test="accidentDescription != null  and accidentDescription != ''  ">accident_description,</if>
+			<if test="remarks != null  and remarks != ''  ">remarks,</if>
+			<if test="createUserId != null  and createUserId != ''  ">create_user_id,</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">modify_user_id,</if>
+			<if test="modifyTime != null  ">modify_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="accidentRecordId != null  and accidentRecordId != ''  ">#{accidentRecordId},</if>
+			<if test="deptId != null  and deptId != ''  ">#{deptId},</if>
+			<if test="postId != null  and postId != ''  ">#{postId},</if>
+			<if test="punishId != null  and punishId != ''  ">#{punishId},</if>
+			<if test="startTime != null  ">#{startTime},</if>
+			<if test="stopTime != null  ">#{stopTime},</if>
+			<if test="userId != null  and userId != ''  ">#{userId},</if>
+			<if test="deleteFlag != null  ">#{deleteFlag},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="accidentTypeId != null  and accidentTypeId != ''  ">#{accidentTypeId},</if>
+			<if test="accidentId != null  and accidentId != ''  ">#{accidentId},</if>
+			<if test="accidentDescription != null  and accidentDescription != ''  ">#{accidentDescription},</if>
+			<if test="remarks != null  and remarks != ''  ">#{remarks},</if>
+			<if test="createUserId != null  and createUserId != ''  ">#{createUserId},</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">#{modifyUserId},</if>
+			<if test="modifyTime != null  ">#{modifyTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAccidentRecord" parameterType="AccidentRecord">
+        update jx_accident_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deptId != null  and deptId != ''  ">dept_id = #{deptId},</if>
+            <if test="postId != null  and postId != ''  ">post_id = #{postId},</if>
+            <if test="punishId != null  and punishId != ''  ">punish_id = #{punishId},</if>
+            <if test="startTime != null  ">start_time = #{startTime},</if>
+            <if test="stopTime != null  ">stop_time = #{stopTime},</if>
+            <if test="userId != null  and userId != ''  ">user_id = #{userId},</if>
+            <if test="deleteFlag != null  ">delete_flag = #{deleteFlag},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="accidentTypeId != null  and accidentTypeId != ''  ">accident_type_id = #{accidentTypeId},</if>
+            <if test="accidentId != null  and accidentId != ''  ">accident_id = #{accidentId},</if>
+            <if test="accidentDescription != null  and accidentDescription != ''  ">accident_description = #{accidentDescription},</if>
+            <if test="remarks != null  and remarks != ''  ">remarks = #{remarks},</if>
+            <if test="createUserId != null  and createUserId != ''  ">create_user_id = #{createUserId},</if>
+            <if test="modifyUserId != null  and modifyUserId != ''  ">modify_user_id = #{modifyUserId},</if>
+            <if test="modifyTime != null  ">modify_time = #{modifyTime},</if>
+        </trim>
+        where accident_record_id = #{accidentRecordId}
+    </update>
+
+	<delete id="deleteAccidentRecordById" parameterType="String">
+        delete from jx_accident_record where accident_record_id = #{accidentRecordId}
+    </delete>
+	
+    <delete id="deleteAccidentRecordByIds" parameterType="String">
+        delete from jx_accident_record where accident_record_id in 
+        <foreach item="accidentRecordId" collection="array" open="(" separator="," close=")">
+            #{accidentRecordId}
+        </foreach>
+    </delete>
+    
+</mapper>

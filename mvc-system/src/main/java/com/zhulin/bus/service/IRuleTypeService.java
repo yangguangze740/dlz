@@ -7,7 +7,7 @@ import java.util.List;
  * 规则类型管理 服务层
  * 
  * @author zhulin
- * @date 2019-04-17
+ * @date 2019-04-18
  */
 public interface IRuleTypeService 
 {
