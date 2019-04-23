@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhulin.bus.mapper.ScoreRecordMapper">
+    
+    <resultMap type="ScoreRecord" id="ScoreRecordResult">
+        <result property="scoreRecordId"    column="score_record_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="ruleTypeId"    column="rule_type_id"    />
+        <result property="ruleTypeName"    column="rule_type_name"    />
+        <result property="ruleId"    column="rule_id"    />
+        <result property="ruleName"    column="rule_name"    />
+        <result property="operatorUserName"    column="operator_user_name"    />
+        <result property="modifyUserId"    column="modify_user_id"    />
+        <result property="createTime"    column="createTime"    />
+        <result property="modifyTime"    column="modify_time"    />
+    </resultMap>
+	
+	<sql id="selectScoreRecordVo">
+    SELECT
+        score_record_id,
+        user_name,
+        rule_type_name,
+        rule_name,
+        operator_user_name
+    FROM
+        jx_score_record SR
+            LEFT JOIN
+        sys_user U ON U.user_id = SR.user_id
+            LEFT JOIN
+        jx_rule_type AP ON AP.rule_type_id = SR.rule_type_Id
+            LEFT JOIN
+        jx_rule A ON A.rule_id = SR.rule_id
+</sql>
+	
+    <select id="selectScoreRecordList" parameterType="ScoreRecord" resultMap="ScoreRecordResult">
+        <include refid="selectScoreRecordVo"/>
+        <where>  
+            <if test="scoreRecordId != null  and scoreRecordId != '' "> and score_record_id = #{scoreRecordId}</if>
+             <if test="userId != null  and userId != '' "> and user_id = #{userId}</if>
+             <if test="ruleTypeId != null  and ruleTypeId != '' "> and rule_type_id = #{ruleTypeId}</if>
+             <if test="ruleId != null  and ruleId != '' "> and rule_id = #{ruleId}</if>
+             <if test="operatorUserName != null  and operatorUserName != '' "> and operator_user_name = #{operatorUserName}</if>
+             <if test="modifyUserId != null  and modifyUserId != '' "> and modify_user_id = #{modifyUserId}</if>
+             <if test="createTime != null "> and createTime = #{createTime}</if>
+             <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectScoreRecordById" parameterType="String" resultMap="ScoreRecordResult">
+        <include refid="selectScoreRecordVo"/>
+        where score_record_id = #{scoreRecordId}
+    </select>
+        
+    <insert id="insertScoreRecord" parameterType="ScoreRecord">
+        insert into jx_score_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="scoreRecordId != null  and scoreRecordId != ''  ">score_record_id,</if>
+			<if test="userId != null  and userId != ''  ">user_id,</if>
+			<if test="ruleTypeId != null  and ruleTypeId != ''  ">rule_type_id,</if>
+			<if test="ruleId != null  and ruleId != ''  ">rule_id,</if>
+			<if test="operatorUserName != null  and operatorUserName != ''  ">operator_user_name,</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">modify_user_id,</if>
+			<if test="createTime != null  ">createTime,</if>
+			<if test="modifyTime != null  ">modify_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="scoreRecordId != null  and scoreRecordId != ''  ">#{scoreRecordId},</if>
+			<if test="userId != null  and userId != ''  ">#{userId},</if>
+			<if test="ruleTypeId != null  and ruleTypeId != ''  ">#{ruleTypeId},</if>
+			<if test="ruleId != null  and ruleId != ''  ">#{ruleId},</if>
+			<if test="operatorUserName != null  and operatorUserName != ''  ">#{operatorUserName},</if>
+			<if test="modifyUserId != null  and modifyUserId != ''  ">#{modifyUserId},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="modifyTime != null  ">#{modifyTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateScoreRecord" parameterType="ScoreRecord">
+        update jx_score_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null  and userId != ''  ">user_id = #{userId},</if>
+            <if test="ruleTypeId != null  and ruleTypeId != ''  ">rule_type_id = #{ruleTypeId},</if>
+            <if test="ruleId != null  and ruleId != ''  ">rule_id = #{ruleId},</if>
+            <if test="operatorUserName != null  and operatorUserName != ''  ">operator_user_name = #{operatorUserName},</if>
+            <if test="modifyUserId != null  and modifyUserId != ''  ">modify_user_id = #{modifyUserId},</if>
+            <if test="createTime != null  ">createTime = #{createTime},</if>
+            <if test="modifyTime != null  ">modify_time = #{modifyTime},</if>
+        </trim>
+        where score_record_id = #{scoreRecordId}
+    </update>
+
+	<delete id="deleteScoreRecordById" parameterType="String">
+        delete from jx_score_record where score_record_id = #{scoreRecordId}
+    </delete>
+	
+    <delete id="deleteScoreRecordByIds" parameterType="String">
+        delete from jx_score_record where score_record_id in 
+        <foreach item="scoreRecordId" collection="array" open="(" separator="," close=")">
+            #{scoreRecordId}
+        </foreach>
+    </delete>
+    
+</mapper>

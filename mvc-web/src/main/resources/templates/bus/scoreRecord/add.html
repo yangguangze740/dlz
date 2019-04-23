@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-scoreRecord-add">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">用户姓名</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="userId" name="userId" placeholder="事故类别名">
+						<option th:each="sysUser:${sysUsers}" th:value="${sysUser.userId}" th:text="${sysUser.userName}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">规则</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="ruleId" name="ruleId" placeholder="规则名">
+						<option th:each="rule:${rules}" th:value="${rule.ruleId}" th:text="${rule.ruleName}"></option>
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "bus/scoreRecord"
+		$("#form-scoreRecord-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-scoreRecord-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

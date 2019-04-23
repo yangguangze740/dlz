@@ -84,6 +84,16 @@ public class SysUser extends BaseEntity
     /** 岗位组 */
     private Long[] postIds;
 
+    private int userScore;
+
+    public int getUserScore() {
+        return userScore;
+    }
+
+    public void setUserScore(int userScore) {
+        this.userScore = userScore;
+    }
+
     public Long getUserId()
     {
         return userId;

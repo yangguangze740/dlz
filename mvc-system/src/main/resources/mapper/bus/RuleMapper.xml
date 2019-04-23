@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<sql id="selectRuleVo">
         SELECT
-            rule_id, rule_name, rule_type_name, score
+            rule_id, rule_name, rule_type_name, score,RP.rule_type_id
         FROM
             jx_rule R
                 LEFT JOIN
