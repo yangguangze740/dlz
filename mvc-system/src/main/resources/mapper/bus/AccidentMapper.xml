@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="accidentId != null  and accidentId != '' "> and accident_id = #{accidentId}</if>
              <if test="accidentName != null  and accidentName != '' "> and accident_name = #{accidentName}</if>
-             <if test="accidentTypeId != null  and accidentTypeId != '' "> and accident_type_id = #{accidentTypeId}</if>
+             <if test="accidentTypeId != null  and accidentTypeId != '' "> and T.accident_type_id = #{accidentTypeId}</if>
              <if test="createTime != null "> and create_time = #{createTime}</if>
              <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
              <if test="createUserId != null  and createUserId != '' "> and create_user_id = #{createUserId}</if>

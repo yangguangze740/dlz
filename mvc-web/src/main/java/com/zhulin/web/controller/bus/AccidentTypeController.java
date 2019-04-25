@@ -128,5 +128,18 @@ public class AccidentTypeController extends BaseController
 	{		
 		return toAjax(accidentTypeService.deleteAccidentTypeByIds(ids));
 	}
-	
+
+	@RequiresPermissions("bus:accidentType:list")
+	@GetMapping("/json")
+	@ResponseBody
+	public AjaxResult json(AccidentType accidentType)
+	{
+		List<AccidentType> list = accidentTypeService.selectAccidentTypeList(accidentType);
+
+		AjaxResult result = new AjaxResult();
+
+		result.put("types", list);
+
+		return result;
+	}
 }

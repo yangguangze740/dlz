@@ -11,11 +11,14 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								事故名：<input type="text" name="accidentName"/>
+								<!--事故类别名：<input type="text" name="accidentTypeName"/>-->
+								事故类别名：
+								<select name="accidentTypeId" id="accidentTypeId">
+								</select>
 							</li>
 
 							<li>
-								事故类别名：<input type="text" name="accidentTypeName"/>
+								事故名：<input type="text" name="accidentName"/>
 							</li>
 
 							<li>
@@ -94,7 +97,23 @@
 		            }
 		        }]
             };
+
             $.table.init(options);
+
+            $.ajax({
+				url: ctx + 'bus/accidentType/json',
+				type: 'get',
+				data: {},
+				success: function (result) {
+					console.log(result)
+					$("#accidentTypeId").empty();
+					$("#accidentTypeId").append('<option>请选择</option>')
+
+					$.each(result.types, function (index, value) {
+						$("#accidentTypeId").append(new Option(value.accidentTypeName, value.accidentTypeId))
+					})
+				}
+			})
         });
     </script>
 </body>
