@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="ruleId != null  and ruleId != '' "> and rule_id = #{ruleId}</if>
              <if test="ruleName != null  and ruleName != '' "> and rule_name = #{ruleName}</if>
-             <if test="ruleTypeId != null  and ruleTypeId != '' "> and rule_type_id = #{ruleTypeId}</if>
+             <if test="ruleTypeId != null  and ruleTypeId != '' "> and R.rule_type_id = #{ruleTypeId}</if>
              <if test="score != null "> and score = #{score}</if>
              <if test="scoreFlag != null "> and score_flag = #{scoreFlag}</if>
              <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
@@ -46,6 +46,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectRuleById" parameterType="String" resultMap="RuleResult">
         <include refid="selectRuleVo"/>
         where rule_id = #{ruleId}
+    </select>
+
+    <select id="selectRuleByTypeId" parameterType="String" resultMap="RuleResult">
+        <include refid="selectRuleVo"/>
+        where RP.rule_type_id = #{ruleTypeId}
     </select>
         
     <insert id="insertRule" parameterType="Rule">

@@ -11,11 +11,13 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								规则名：<input type="text" name="ruleName"/>
+								规则类别名：
+								<select name="ruleTypeId" id="ruleTypeId">
+								</select>
 							</li>
 
 							<li>
-								规则类别：<input type="text" name="ruleTypeName"/>
+								规则名：<input type="text" name="ruleName"/>
 							</li>
 
 							<li>
@@ -96,6 +98,21 @@
 		        }]
             };
             $.table.init(options);
+
+            $.ajax({
+                url: ctx + 'bus/ruleType/json',
+                type: 'get',
+                data: {},
+                success: function (result) {
+                    console.log(result)
+                    $("#ruleTypeId").empty();
+                    $("#ruleTypeId").append('<option value="">请选择</option>')
+
+                    $.each(result.types, function (index, value) {
+                        $("#ruleTypeId").append(new Option(value.ruleTypeName, value.ruleTypeId))
+                    })
+                }
+            })
         });
     </script>
 </body>

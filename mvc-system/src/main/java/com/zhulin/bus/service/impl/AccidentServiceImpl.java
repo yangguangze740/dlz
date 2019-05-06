@@ -82,5 +82,15 @@ public class AccidentServiceImpl implements IAccidentService
 	{
 		return accidentMapper.deleteAccidentByIds(Convert.toStrArray(ids));
 	}
-	
+
+	@Override
+	public List<Accident> selectAccidentByTypeId(String accidentType) {
+		return accidentMapper.selectAccidentByTypeId(accidentType);
+	}
+
+	@Override
+	public List<Accident> selectAccidentByPunishId(String punishId) {
+		return accidentMapper.selectAccidentByPunishId(punishId);
+	}
+
 }

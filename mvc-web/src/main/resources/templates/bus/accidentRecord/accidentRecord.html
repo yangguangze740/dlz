@@ -11,31 +11,41 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								用户名称：<input type="text" name="userName"/>
+								用户名称：
+								<select name = "userId" id = "userId">
+							    </select>
 							</li>
 
 							<li>
-								部门：<input type="text" name="deptName"/>
+								部门：
+								<select name = "deptId" id = "deptId">
+								</select>
 							</li>
 
 							<li>
-								处罚方法：<input type="text" name="punishName"/>
+								处罚方法：
+								<select name = "punishId" id = "punishId">
+								</select>
 							</li>
 
 							<li>
-								处罚开始时间：<input type="text" name="startTime"/>
+								事故类型：
+								<select name = "accidentTypeId" id = "accidentTypeId">
+								</select>
 							</li>
 
 							<li>
-								处罚结束时间：<input type="text" name="stopTime"/>
+								事故：
+								<select name = "accidentId" id = "accidentId">
+								</select>
 							</li>
 
 							<li>
-								事故类型：<input type="text" name="accidentTypeName"/>
+								处罚开始时间：<input type="date" name="startTime"/>
 							</li>
 
 							<li>
-								事故：<input type="text" name="accidentName"/>
+								处罚结束时间：<input type="date" name="stopTime"/>
 							</li>
 
 							<li>
@@ -96,7 +106,7 @@
 				{
 					field : 'userName',
 					title : '用户名称’',
-					visible: false
+					visible: true
 				},
 				{
 					field : 'deptName',
@@ -150,6 +160,116 @@
 		        }]
             };
             $.table.init(options);
+
+            $.ajax({
+                url: ctx + 'bus/accidentType/json',
+                type: 'get',
+                data: {},
+                success: function (result) {
+
+
+                    $("#accidentTypeId").empty();
+                    $("#accidentTypeId").append('<option value="">请选择</option>')
+
+                    $.each(result.types, function (index, value) {
+                        $("#accidentTypeId").append(new Option(value.accidentTypeName, value.accidentTypeId))
+                    });
+
+                    $("#accidentTypeId").trigger("change");
+                }
+            });
+
+            $.ajax({
+                url:'/system/dept/json',
+                type: 'get',
+                data: {},
+                success: function (result) {
+
+                    $("#deptId").empty();
+                    $("#deptId").append('<option value="">请选择</option>')
+
+                    $.each(result.depts, function (index, value) {
+                        $("#deptId").append(new Option(value.deptName, value.deptId))
+                    });
+
+                    $("#deptId").trigger("change");
+                }
+            });
+
+            $("#deptId").change(function () {
+
+                var deptId = $("#deptId").val();
+
+                $.ajax({
+                    url: ctx + 'system/user/dept?deptId='+deptId ,
+                    type: 'get',
+                    success: function(result) {
+
+                        $("#userId").empty();
+                        $("#userId").append('<option value="">请选择</option>')
+
+                        $.each(result.users, function (index, value) {
+                            $("#userId").append(new Option(value.userName, value.userId))
+                        });
+                    }
+                })
+            });
+
+            $.ajax({
+                url: ctx + 'bus/punish/json',
+                type: 'get',
+                data: {},
+                success: function (result) {
+
+
+                    $("#punishId").empty();
+                    $("#punishId").append('<option value="">请选择</option>')
+
+                    $.each(result.punishes, function (index, value) {
+                        $("#punishId").append(new Option(value.punishName, value.punishId))
+                    });
+
+                    $("#punishId").trigger("change");
+                }
+            });
+
+            $("#punishId").change(function () {
+
+                var punishId = $("#punishId").val();
+
+                $.ajax({
+                    url: ctx + 'bus/accident/punish?punishId='+punishId ,
+                    type: 'get',
+                    success: function(result) {
+
+                        $("#accidentId").empty();
+                        $("#accidentId").append('<option value="">请选择</option>')
+
+                        $.each(result.json, function (index, value) {
+                            $("#accidentId").append(new Option(value.accidentName, value.accidentId))
+                        });
+                    }
+                })
+            });
+
+            $("#accidentTypeId").change(function () {
+
+                var accidentTypeId = $("#accidentTypeId").val();
+
+                $.ajax({
+                    url: ctx + 'bus/accident/accidentType?accidentTypeId='+accidentTypeId ,
+                    type: 'get',
+                    success: function(result) {
+
+                        $("#accidentId").empty();
+                        $("#accidentId").append('<option value="">请选择</option>')
+
+                        $.each(result.accidents, function (index, value) {
+                            $("#accidentId").append(new Option(value.accidentName, value.accidentId))
+                        });
+                    }
+                })
+            });
         });
     </script>
 </body>

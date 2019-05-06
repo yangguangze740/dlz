@@ -98,4 +98,6 @@ public interface SysDeptMapper
      * @param dept 部门
      */
     public void updateDeptStatus(SysDept dept);
+
+    List<SysDept> selectDeptAll(SysDept sysDept);
 }

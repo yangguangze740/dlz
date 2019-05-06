@@ -18,11 +18,9 @@
 							</li>
 
 							<li>
-								事故名：<input type="text" name="accidentName"/>
-							</li>
-
-							<li>
-								惩罚措施：<input type="text" name="punishName"/>
+								惩罚措施：
+								<select name="punishId" id="punishId">
+								</select>
 							</li>
 
 							<li>
@@ -107,13 +105,31 @@
 				success: function (result) {
 					console.log(result)
 					$("#accidentTypeId").empty();
-					$("#accidentTypeId").append('<option>请选择</option>')
+					$("#accidentTypeId").append('<option value="">请选择</option>')
 
 					$.each(result.types, function (index, value) {
 						$("#accidentTypeId").append(new Option(value.accidentTypeName, value.accidentTypeId))
 					})
 				}
-			})
+			});
+
+            $.ajax({
+                url: ctx + 'bus/punish/json',
+                type: 'get',
+                data: {},
+                success: function (result) {
+
+
+                    $("#punishId").empty();
+                    $("#punishId").append('<option value="">请选择</option>')
+
+                    $.each(result.punishes, function (index, value) {
+                        $("#punishId").append(new Option(value.punishName, value.punishId))
+                    });
+
+                    $("#punishId").trigger("change");
+                }
+            });
         });
     </script>
 </body>

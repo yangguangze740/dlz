@@ -237,4 +237,32 @@ public class SysUserController extends BaseController
     {
         return toAjax(userService.changeStatus(user));
     }
+
+    @RequiresPermissions("system:user:list")
+    @GetMapping("/dept")
+    @ResponseBody
+    public AjaxResult jsonDept( String deptId)
+    {
+        List<SysUser> list = userService.selectUserByDeptId(deptId);
+
+        AjaxResult result = new AjaxResult();
+
+        result.put("users", list);
+
+        return result;
+    }
+
+    @RequiresPermissions("system:user:list")
+    @GetMapping("/json")
+    @ResponseBody
+    public AjaxResult json(SysUser sysUser)
+    {
+        List<SysUser> list = userService.selectUserList(sysUser);
+
+        AjaxResult result = new AjaxResult();
+
+        result.put("json", list);
+
+        return result;
+    }
 }

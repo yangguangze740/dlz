@@ -260,4 +260,9 @@ public class SysDeptServiceImpl implements ISysDeptService
         }
         return UserConstants.DEPT_NAME_UNIQUE;
     }
+
+    @Override
+    public List<SysDept> selectDeptAll(SysDept sysDept) {
+        return deptMapper.selectDeptAll(sysDept);
+    }
 }

@@ -163,4 +163,18 @@ public class SysDeptController extends BaseController
         List<Map<String, Object>> tree = deptService.roleDeptTreeData(role);
         return tree;
     }
+
+    @RequiresPermissions("system:dept:list")
+    @GetMapping("/json")
+    @ResponseBody
+    public AjaxResult json(SysDept sysDept)
+    {
+        List<SysDept> list = deptService.selectDeptList(sysDept);
+
+        AjaxResult result = new AjaxResult();
+
+        result.put("depts", list);
+
+        return result;
+    }
 }

@@ -1,6 +1,7 @@
 package com.zhulin.bus.service;
 
 import com.zhulin.bus.domain.Accident;
+
 import java.util.List;
 
 /**
@@ -50,5 +51,8 @@ public interface IAccidentService
      * @return 结果
      */
 	public int deleteAccidentByIds(String ids);
-	
+
+    List<Accident> selectAccidentByTypeId(String accidentType);
+
+    List<Accident> selectAccidentByPunishId(String punishId);
 }

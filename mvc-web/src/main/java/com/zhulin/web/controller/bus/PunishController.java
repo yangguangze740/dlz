@@ -129,5 +129,18 @@ public class PunishController extends BaseController
 	{		
 		return toAjax(punishService.deletePunishByIds(ids));
 	}
-	
+
+	@RequiresPermissions("bus:accidentType:list")
+	@GetMapping("/json")
+	@ResponseBody
+	public AjaxResult json(Punish punish)
+	{
+		List<Punish> list = punishService.selectPunishList(punish);
+
+		AjaxResult result = new AjaxResult();
+
+		result.put("punishes", list);
+
+		return result;
+	}
 }

@@ -39,9 +39,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectScoreRecordVo"/>
         <where>  
             <if test="scoreRecordId != null  and scoreRecordId != '' "> and score_record_id = #{scoreRecordId}</if>
-             <if test="userId != null  and userId != '' "> and user_id = #{userId}</if>
-             <if test="ruleTypeId != null  and ruleTypeId != '' "> and rule_type_id = #{ruleTypeId}</if>
-             <if test="ruleId != null  and ruleId != '' "> and rule_id = #{ruleId}</if>
+             <if test="userId != null  and userId != '' "> and U.user_id = #{userId}</if>
+             <if test="ruleTypeId != null  and ruleTypeId != '' "> and AP.rule_type_id = #{ruleTypeId}</if>
+             <if test="ruleId != null  and ruleId != '' "> and A.rule_id = #{ruleId}</if>
              <if test="operatorUserName != null  and operatorUserName != '' "> and operator_user_name = #{operatorUserName}</if>
              <if test="modifyUserId != null  and modifyUserId != '' "> and modify_user_id = #{modifyUserId}</if>
              <if test="createTime != null "> and createTime = #{createTime}</if>

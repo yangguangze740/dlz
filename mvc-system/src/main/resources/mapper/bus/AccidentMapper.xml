@@ -45,13 +45,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="createUserId != null  and createUserId != '' "> and create_user_id = #{createUserId}</if>
              <if test="modifyUserId != null  and modifyUserId != '' "> and modify_user_id = #{modifyUserId}</if>
              <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
-             <if test="punishId != null  and punishId != '' "> and punish_id = #{punishId}</if>
+             <if test="punishId != null  and punishId != '' "> and P.punish_id = #{punishId}</if>
          </where>
     </select>
     
     <select id="selectAccidentById" parameterType="String" resultMap="AccidentResult">
         <include refid="selectAccidentVo"/>
         where accident_id = #{accidentId}
+    </select>
+
+    <select id="selectAccidentByTypeId" parameterType="String" resultMap="AccidentResult">
+        <include refid="selectAccidentVo"/>
+        where A.accident_type_id = #{accidentTypeId}
+    </select>
+
+    <select id="selectAccidentByPunishId" parameterType="String" resultMap="AccidentResult">
+        <include refid="selectAccidentVo"/>
+        where P.punish_id = #{punishId}
     </select>
         
     <insert id="insertAccident" parameterType="Accident">

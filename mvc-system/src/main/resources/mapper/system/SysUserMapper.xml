@@ -81,6 +81,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 数据范围过滤 -->
 		${params.dataScope}
 	</select>
+
+	<select id="selectUserByDeptId" parameterType="String" resultMap="SysUserResult">
+		<include refid="selectUserVo"/>
+		where u.dept_id = #{deptId}
+	</select>
 	
 	<select id="selectUserByLoginName" parameterType="String" resultMap="SysUserResult">
 	    <include refid="selectUserVo"/>

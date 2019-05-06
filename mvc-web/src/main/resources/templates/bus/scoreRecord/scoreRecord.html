@@ -11,19 +11,21 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								用户：<input type="text" name="userName"/>
+								用户：
+                                <select name="userId" id="userId">
+                                </select>
 							</li>
 
 							<li>
-								规则类型：<input type="text" name="ruleTypeName"/>
+								规则类型：
+								<select name="ruleTypeId" id="ruleTypeId">
+								</select>
 							</li>
 
 							<li>
-								规则：<input type="text" name="ruleName"/>
-							</li>
-
-							<li>
-								操作用户：<input type="text" name="operatorUserName"/>
+								规则：
+								<select name="ruleId" id="ruleId">
+								</select>
 							</li>
 
 							<li>
@@ -105,6 +107,55 @@
 		        }]
             };
             $.table.init(options);
+
+            $.ajax({
+                url: ctx + 'system/user/json',
+                type: 'get',
+                data: {},
+                success: function (result) {
+                    console.log(result)
+                    $("#userId").empty();
+                    $("#userId").append('<option value="">请选择</option>')
+
+                    $.each(result.json, function (index, value) {
+                        $("#userId").append(new Option(value.userName, value.userId))
+                    });
+                }
+            });
+
+            $.ajax({
+                url: ctx + 'bus/ruleType/json',
+                type: 'get',
+                data: {},
+                success: function (result) {
+                    console.log(result)
+                    $("#ruleTypeId").empty();
+                    $("#ruleTypeId").append('<option value="">请选择</option>')
+
+                    $.each(result.types, function (index, value) {
+                        $("#ruleTypeId").append(new Option(value.ruleTypeName, value.ruleTypeId))
+                    });
+                }
+            });
+
+            $("#ruleTypeId").change(function () {
+
+                var ruleTypeId = $("#ruleTypeId").val();
+
+                $.ajax({
+                    url: ctx + 'bus/rule/type?ruleTypeId='+ruleTypeId ,
+                    type: 'get',
+                    success: function(result) {
+
+                        $("#ruleId").empty();
+                        $("#ruleId").append('<option value="">请选择</option>')
+
+                        $.each(result.json, function (index, value) {
+                            $("#ruleId").append(new Option(value.ruleName, value.ruleId))
+                        });
+                    }
+                })
+            });
         });
     </script>
 </body>

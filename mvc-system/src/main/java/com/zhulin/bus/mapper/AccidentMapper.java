@@ -58,5 +58,8 @@ public interface AccidentMapper
      * @return 结果
      */
 	public int deleteAccidentByIds(String[] accidentIds);
-	
+
+    List<Accident> selectAccidentByTypeId(String accidentTypeId);
+
+    List<Accident> selectAccidentByPunishId(String punishId);
 }

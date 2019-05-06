@@ -58,5 +58,6 @@ public interface RuleMapper
      * @return 结果
      */
 	public int deleteRuleByIds(String[] ruleIds);
-	
+
+    List<Rule> selectRuleByTypeId(String ruleTypeId);
 }

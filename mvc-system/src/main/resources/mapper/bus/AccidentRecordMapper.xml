@@ -59,16 +59,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectAccidentRecordVo"/>
         <where>  
             <if test="accidentRecordId != null  and accidentRecordId != '' "> and accident_record_id = #{accidentRecordId}</if>
-             <if test="deptId != null  and deptId != '' "> and dept_id = #{deptId}</if>
+             <if test="deptId != null  and deptId != '' "> and D.dept_id = #{deptId}</if>
              <if test="postId != null  and postId != '' "> and post_id = #{postId}</if>
-             <if test="punishId != null  and punishId != '' "> and punish_id = #{punishId}</if>
+             <if test="punishId != null  and punishId != '' "> and P.punish_id = #{punishId}</if>
              <if test="startTime != null "> and start_time = #{startTime}</if>
              <if test="stopTime != null "> and stop_time = #{stopTime}</if>
-             <if test="userId != null  and userId != '' "> and user_id = #{userId}</if>
+             <if test="userId != null  and userId != '' "> and U.user_id = #{userId}</if>
              <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
              <if test="createTime != null "> and create_time = #{createTime}</if>
-             <if test="accidentTypeId != null  and accidentTypeId != '' "> and accident_type_id = #{accidentTypeId}</if>
-             <if test="accidentId != null  and accidentId != '' "> and accident_id = #{accidentId}</if>
+             <if test="accidentTypeId != null  and accidentTypeId != '' "> and AP.accident_type_id = #{accidentTypeId}</if>
+             <if test="accidentId != null  and accidentId != '' "> and A.accident_id = #{accidentId}</if>
              <if test="accidentDescription != null  and accidentDescription != '' "> and accident_description = #{accidentDescription}</if>
              <if test="remarks != null  and remarks != '' "> and remarks = #{remarks}</if>
              <if test="createUserId != null  and createUserId != '' "> and create_user_id = #{createUserId}</if>

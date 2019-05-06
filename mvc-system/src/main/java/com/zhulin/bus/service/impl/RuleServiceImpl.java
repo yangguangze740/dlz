@@ -82,5 +82,10 @@ public class RuleServiceImpl implements IRuleService
 	{
 		return ruleMapper.deleteRuleByIds(Convert.toStrArray(ids));
 	}
-	
+
+	@Override
+	public List<Rule> selectRuleByTypeId(String ruleTypeId) {
+		return ruleMapper.selectRuleByTypeId(ruleTypeId);
+	}
+
 }

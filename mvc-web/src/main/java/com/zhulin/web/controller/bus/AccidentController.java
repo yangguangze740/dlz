@@ -12,11 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.zhulin.common.annotation.Log;
 import com.zhulin.common.enums.BusinessType;
 import com.zhulin.bus.domain.Accident;
@@ -148,5 +144,33 @@ public class AccidentController extends BaseController
 	{		
 		return toAjax(accidentService.deleteAccidentByIds(ids));
 	}
-	
+
+	@RequiresPermissions("bus:accidentType:list")
+	@GetMapping("/accidentType")
+	@ResponseBody
+	public AjaxResult jsonAccidentType(String accidentTypeId)
+	{
+		List<Accident> list = accidentService.selectAccidentByTypeId(accidentTypeId);
+
+		AjaxResult result = new AjaxResult();
+
+		result.put("accidents", list);
+
+		return result;
+	}
+
+	@RequiresPermissions("bus:accidentType:list")
+	@GetMapping("/punish")
+	@ResponseBody
+	public AjaxResult jsonPunish( String punishId)
+	{
+		List<Accident> list = accidentService.selectAccidentByPunishId(punishId);
+
+		AjaxResult result = new AjaxResult();
+
+		result.put("json", list);
+
+		return result;
+	}
+
 }

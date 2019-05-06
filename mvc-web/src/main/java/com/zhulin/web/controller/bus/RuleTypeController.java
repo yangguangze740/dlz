@@ -129,5 +129,19 @@ public class RuleTypeController extends BaseController
 	{		
 		return toAjax(ruleTypeService.deleteRuleTypeByIds(ids));
 	}
+
+	@RequiresPermissions("bus:accidentType:list")
+	@GetMapping("/json")
+	@ResponseBody
+	public AjaxResult json(RuleType ruleType)
+	{
+		List<RuleType> list = ruleTypeService.selectRuleTypeList(ruleType);
+
+		AjaxResult result = new AjaxResult();
+
+		result.put("types", list);
+
+		return result;
+	}
 	
 }
