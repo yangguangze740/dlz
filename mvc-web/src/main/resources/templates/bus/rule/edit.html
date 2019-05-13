@@ -47,45 +47,49 @@
     </div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
+		console.log(ctx)
+        $(function () {
+			var prefix = ctx + "bus/rule";
 
-        var ruleId = $("#ruleId").val();
+			var ruleId = $("#ruleId").val();
 
-        $.ajax({
-            url:ctx+'/bus/rule/check?ruleId=' + ruleId ,
-            type: 'get',
-            data: {},
-            success: function(result) {
-                if (result) {
+			$.ajax({
+				url: ctx + 'bus/rule/check?ruleId=' + ruleId ,
+				type: 'get',
+				data: {},
+				success: function(result) {
+					if (result) {
+						console.log(result)
+						$.each(result.checkDepts, function (index, value) {
+							$("#deptDatas").append('<tr><td>' + (index + 1) + '</td><td>' + value.deptName
+									+ '</td><td><input type="checkbox" value="' + value.deptId
+									+ '" name="deptIds" checked></td></tr>');
+						});
 
-                    $.each(result.checkDepts, function (index, value) {
-                        $("#deptDatas").append('<tr><td>' + (index + 1) + '</td><td>' + value.deptName
-                            + '</td><td><input type="checkbox" value="' + value.deptId
-                            + '" name="deptIds" checked></td></tr>');
-                    });
+						$.each(result.uncheckDepts, function (index, value) {
+							$("#deptDatas").append('<tr><td>' + (index + 1) + '</td><td>' + value.deptName
+									+ '</td><td><input type="checkbox" value="' + value.deptId
+									+ '" name="deptIds"></td></tr>');
+						});
+					}
+				}
+			});
 
-                    $.each(result.uncheckDepts, function (index, value) {
-                        $("#deptDatas").append('<tr><td>' + (index + 1) + '</td><td>' + value.deptName
-                            + '</td><td><input type="checkbox" value="' + value.deptId
-                            + '" name="deptIds"></td></tr>');
-                    });
-                }
-            },
-        });
 
-		var prefix = ctx + "bus/rule";
-		$("#form-rule-edit").validate({
-			rules:{
-				xxxx:{
-					required:true,
-				},
+			$("#form-rule-edit").validate({
+				rules:{
+					xxxx:{
+						required:true,
+					}
+				}
+			});
+
+			function submitHandler() {
+				if ($.validate.form()) {
+					$.operate.save(prefix + "/edit", $('#form-rule-edit').serialize());
+				}
 			}
-		});
-		
-		function submitHandler() {
-	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/edit", $('#form-rule-edit').serialize());
-	        }
-	    }
+		})
 	</script>
 </body>
 </html>

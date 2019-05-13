@@ -58,6 +58,8 @@
         var removeFlag = [[${@permission.hasPermi('bus:rule:remove')}]];
         var prefix = ctx + "bus/rule";
 
+        console.log(prefix)
+
         $(function() {
             var options = {
                 url: prefix + "/list",
@@ -109,7 +111,6 @@
                 type: 'get',
                 data: {},
                 success: function (result) {
-                    console.log(result)
                     $("#ruleTypeId").empty();
                     $("#ruleTypeId").append('<option value="">请选择</option>')
 
