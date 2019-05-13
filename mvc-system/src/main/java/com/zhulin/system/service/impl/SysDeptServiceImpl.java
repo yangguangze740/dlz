@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zhulin.common.annotation.DataScope;
@@ -264,5 +265,15 @@ public class SysDeptServiceImpl implements ISysDeptService
     @Override
     public List<SysDept> selectDeptAll(SysDept sysDept) {
         return deptMapper.selectDeptAll(sysDept);
+    }
+
+    @Override
+    public List<SysDept> checkRuleList(String ruleId) {
+        return deptMapper.selectCheckRules(ruleId);
+    }
+
+    @Override
+    public List<SysDept> unCheckRuleList(String ruleId) {
+        return deptMapper.uncheckRules(ruleId);
     }
 }

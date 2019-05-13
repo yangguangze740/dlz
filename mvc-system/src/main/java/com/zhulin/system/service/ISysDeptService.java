@@ -2,6 +2,7 @@ package com.zhulin.system.service;
 
 import java.util.List;
 import java.util.Map;
+
 import com.zhulin.system.domain.SysDept;
 import com.zhulin.system.domain.SysRole;
 
@@ -93,4 +94,8 @@ public interface ISysDeptService
     public String checkDeptNameUnique(SysDept dept);
 
     List<SysDept> selectDeptAll(SysDept sysDept);
+
+    List<SysDept> checkRuleList(String ruleId);
+
+    List<SysDept> unCheckRuleList(String ruleId);
 }

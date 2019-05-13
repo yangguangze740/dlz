@@ -52,4 +52,5 @@ public interface IRuleService
 	public int deleteRuleByIds(String ids);
 
     List<Rule> selectRuleByTypeId(String ruleTypeId);
+
 }

@@ -1,7 +1,10 @@
 package com.zhulin.bus.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.zhulin.bus.domain.RuleDept;
+import com.zhulin.bus.mapper.RuleDeptMapper;
 import com.zhulin.common.utils.PrimaryKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,8 @@ public class RuleServiceImpl implements IRuleService
 {
 	@Autowired
 	private RuleMapper ruleMapper;
+	@Autowired
+	private RuleDeptMapper ruleDeptMapper;
 
 	/**
      * 查询规则管理信息
@@ -55,8 +60,25 @@ public class RuleServiceImpl implements IRuleService
 	@Override
 	public int insertRule(Rule rule)
 	{
-		rule.setRuleId(PrimaryKeyUtil.uuidPrimaryKey());
-	    return ruleMapper.insertRule(rule);
+		String ruleId = PrimaryKeyUtil.uuidPrimaryKey();
+		rule.setRuleId(ruleId);
+
+		List<String> deptIds = rule.getDeptIds();
+		List<RuleDept> ruleDeptList = new ArrayList<>();
+
+		for(String deptId:deptIds){
+
+			RuleDept ruleDept = new RuleDept();
+			ruleDept.setDeptId(deptId);
+			ruleDept.setRuleId(ruleId);
+
+			ruleDeptList.add(ruleDept);
+		}
+
+		int insertRuleDept = ruleDeptMapper.insertRuleDept(ruleDeptList);
+		int insertRule = ruleMapper.insertRule(rule);
+
+	    return insertRule;
 	}
 	
 	/**
@@ -68,7 +90,23 @@ public class RuleServiceImpl implements IRuleService
 	@Override
 	public int updateRule(Rule rule)
 	{
-	    return ruleMapper.updateRule(rule);
+	    int deleteNum = ruleDeptMapper.deleteRuleDeptById(rule.getRuleId());
+
+	    List<String> deptIds = rule.getDeptIds();
+	    List<RuleDept> ruleDeptList = new ArrayList<>();
+
+	    for(String deptId :deptIds){
+
+	    	RuleDept ruleDept = new RuleDept();
+	    	ruleDept.setRuleId(rule.getRuleId());
+	    	ruleDept.setDeptId(deptId);
+			ruleDeptList.add(ruleDept);
+		}
+
+		int updateRule = ruleMapper.updateRule(rule);
+	    int insertRuleDept = ruleDeptMapper.insertRuleDept(ruleDeptList);
+
+		return deleteNum & updateRule & insertRuleDept ;
 	}
 
 	/**

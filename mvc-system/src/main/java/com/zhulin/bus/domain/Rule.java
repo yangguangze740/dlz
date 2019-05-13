@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * 规则管理表 jx_rule
@@ -37,6 +38,26 @@ public class Rule extends BaseEntity
 	private String createUserId;
 	/**  */
 	private Date modifyTime;
+
+	private List<String> deptIds;
+
+	private String deptName;
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public List<String> getDeptIds() {
+		return deptIds;
+	}
+
+	public void setDeptIds(List<String> deptIds) {
+		this.deptIds = deptIds;
+	}
 
 	private String ruleTypeName;
 

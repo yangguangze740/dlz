@@ -5,6 +5,8 @@ import java.util.List;
 import com.zhulin.bus.domain.RuleType;
 import com.zhulin.bus.service.IRuleTypeService;
 import com.zhulin.framework.util.ShiroUtils;
+import com.zhulin.system.domain.SysDept;
+import com.zhulin.system.service.ISysDeptService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,8 @@ public class RuleController extends BaseController
 	private IRuleService ruleService;
 	@Autowired
 	private IRuleTypeService ruleTypeService;
+	@Autowired
+	private ISysDeptService sysDeptService;
 	
 	@RequiresPermissions("bus:rule:view")
 	@GetMapping()
@@ -82,7 +86,10 @@ public class RuleController extends BaseController
 	public String add(Model model)
 	{
 	    List<RuleType> ruleTypes = ruleTypeService.selectRuleTypeList(new RuleType());
+	    List<SysDept> sysDepts = sysDeptService.selectDeptList(new SysDept());
+
 	    model.addAttribute("ruleTypes", ruleTypes);
+	    model.addAttribute("sysDepts", sysDepts);
 		return prefix + "/add";
 	}
 	
@@ -110,7 +117,9 @@ public class RuleController extends BaseController
 		mmap.put("rule", rule);
 
 		List<RuleType> ruleTypes = ruleTypeService.selectRuleTypeList(new RuleType());
+
 		model.addAttribute("ruleTypes", ruleTypes);
+
 	    return prefix + "/edit";
 	}
 	
@@ -149,6 +158,22 @@ public class RuleController extends BaseController
 		AjaxResult result = new AjaxResult();
 
 		result.put("json", list);
+
+		return result;
+	}
+
+	@RequiresPermissions("sys:dept:list")
+	@GetMapping("/check")
+	@ResponseBody
+	public AjaxResult jsonCheck(String ruleId)
+	{
+		List<SysDept> checkDepts = sysDeptService.checkRuleList(ruleId);
+		List<SysDept> unCheckDepts = sysDeptService.unCheckRuleList(ruleId);
+
+		AjaxResult result = new AjaxResult();
+
+		result.put("checkDepts", checkDepts);
+		result.put("uncheckDepts", unCheckDepts);
 
 		return result;
 	}

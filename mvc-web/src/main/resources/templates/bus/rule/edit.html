@@ -29,10 +29,49 @@
 					<input id="score" name="score" th:field="*{score}" class="form-control" type="text">
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">选择部门</label>
+				<div class="col-md-4">
+					<table class="table">
+						<tr>
+							<td>序号</td>
+							<td>部门</td>
+							<td>选择</td>
+						</tr>
+						<tbody id="deptDatas">
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</form>
     </div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
+
+        var ruleId = $("#ruleId").val();
+
+        $.ajax({
+            url:ctx+'/bus/rule/check?ruleId=' + ruleId ,
+            type: 'get',
+            data: {},
+            success: function(result) {
+                if (result) {
+
+                    $.each(result.checkDepts, function (index, value) {
+                        $("#deptDatas").append('<tr><td>' + (index + 1) + '</td><td>' + value.deptName
+                            + '</td><td><input type="checkbox" value="' + value.deptId
+                            + '" name="deptIds" checked></td></tr>');
+                    });
+
+                    $.each(result.uncheckDepts, function (index, value) {
+                        $("#deptDatas").append('<tr><td>' + (index + 1) + '</td><td>' + value.deptName
+                            + '</td><td><input type="checkbox" value="' + value.deptId
+                            + '" name="deptIds"></td></tr>');
+                    });
+                }
+            },
+        });
+
 		var prefix = ctx + "bus/rule";
 		$("#form-rule-edit").validate({
 			rules:{

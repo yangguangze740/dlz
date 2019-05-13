@@ -16,15 +16,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createUserId"    column="create_user_id"    />
         <result property="modifyTime"    column="modify_time"    />
         <result property="ruleTypeName"    column="rule_type_name"    />
+        <result property="deptName"    column="dept_name"    />
     </resultMap>
 	
 	<sql id="selectRuleVo">
-        SELECT
-            rule_id, rule_name, rule_type_name, score,RP.rule_type_id
+       SELECT
+            R.rule_id, rule_name, rule_type_name, score, RP.rule_type_id, D.dept_name
         FROM
             jx_rule R
                 LEFT JOIN
             jx_rule_type RP ON R.rule_type_id = RP.rule_type_id
+                LEFT JOIN
+            (SELECT
+                RT.rule_id AS rule_id,
+                    GROUP_CONCAT(D.dept_name) AS dept_name
+            FROM
+                jx_rule_dept RT
+            LEFT JOIN sys_dept D ON RT.dept_id = D.dept_id
+            GROUP BY RT.rule_id) AS D ON R.rule_id = D.rule_id
     </sql>
 	
     <select id="selectRuleList" parameterType="Rule" resultMap="RuleResult">
@@ -45,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectRuleById" parameterType="String" resultMap="RuleResult">
         <include refid="selectRuleVo"/>
-        where rule_id = #{ruleId}
+        where R.rule_id = #{ruleId}
     </select>
 
     <select id="selectRuleByTypeId" parameterType="String" resultMap="RuleResult">

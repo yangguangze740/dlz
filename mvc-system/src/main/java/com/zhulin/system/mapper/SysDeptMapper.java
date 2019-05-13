@@ -1,6 +1,7 @@
 package com.zhulin.system.mapper;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import com.zhulin.system.domain.SysDept;
 
@@ -100,4 +101,8 @@ public interface SysDeptMapper
     public void updateDeptStatus(SysDept dept);
 
     List<SysDept> selectDeptAll(SysDept sysDept);
+
+    List<SysDept> selectCheckRules(String ruleId);
+
+    List<SysDept> uncheckRules(String ruleId);
 }

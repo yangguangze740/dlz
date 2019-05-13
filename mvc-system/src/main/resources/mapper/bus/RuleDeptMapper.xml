@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhulin.bus.mapper.RuleDeptMapper">
+    
+    <resultMap type="RuleDept" id="RuleDeptResult">
+        <result property="ruleId"    column="rule_id"    />
+        <result property="deptId"    column="dept_id"    />
+    </resultMap>
+	
+	<sql id="selectRuleDeptVo">
+        select rule_id, dept_id from jx_rule_dept
+    </sql>
+	
+    <select id="selectRuleDeptList" parameterType="RuleDept" resultMap="RuleDeptResult">
+        <include refid="selectRuleDeptVo"/>
+        <where>  
+            <if test="ruleId != null  and ruleId != '' "> and rule_id = #{ruleId}</if>
+             <if test="deptId != null  and deptId != '' "> and dept_id = #{deptId}</if>
+         </where>
+    </select>
+    
+    <select id="selectRuleDeptById" parameterType="String" resultMap="RuleDeptResult">
+        <include refid="selectRuleDeptVo"/>
+        where rule_id = #{ruleId}
+    </select>
+        
+    <insert id="insertRuleDept" parameterType="java.util.List">
+        INSERT INTO jx_rule_dept
+        (
+        rule_id,
+        dept_id
+        )
+        VALUES
+        <foreach collection ="list" item="list" separator =",">
+            (
+            #{list.ruleId},
+            #{list.deptId}
+            )
+        </foreach>
+    </insert>
+	 
+    <update id="updateRuleDept" parameterType="RuleDept">
+        update jx_rule_dept
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deptId != null  and deptId != ''  ">dept_id = #{deptId},</if>
+        </trim>
+        where rule_id = #{ruleId}
+    </update>
+
+	<delete id="deleteRuleDeptById" parameterType="String">
+        delete from jx_rule_dept where rule_id = #{ruleId}
+    </delete>
+	
+    <delete id="deleteRuleDeptByIds" parameterType="String">
+        delete from jx_rule_dept where rule_id in 
+        <foreach item="ruleId" collection="array" open="(" separator="," close=")">
+            #{ruleId}
+        </foreach>
+    </delete>
+    
+</mapper>

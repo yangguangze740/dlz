@@ -27,6 +27,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from sys_dept
     </sql>
 
+	<sql id="selectCheckRules">
+         SELECT
+            dept_id, dept_name
+        FROM
+            sys_dept
+        WHERE
+            dept_id IN (SELECT
+                    dept_id
+                FROM
+                    jx_rule_dept
+                WHERE
+                    rule_id = #{ruleId})
+    </sql>
+
+	<sql id="uncheckRules">
+         SELECT
+            dept_id, dept_name
+        FROM
+            sys_dept
+        WHERE
+            dept_id NOT IN (SELECT
+                    dept_id
+                FROM
+                    jx_rule_dept
+                WHERE
+                    rule_id = #{ruleId})
+    </sql>
+
 	<sql id="selectDeptVo">
         select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status, d.del_flag, d.create_by, d.create_time
         from sys_dept d

@@ -25,10 +25,46 @@
 					<input id="score" name="score" class="form-control" type="text">
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">选择部门</label>
+				<div class="col-md-4">
+					<table class="table">
+						<tr>
+							<td>序号</td>
+							<td>部门</td>
+							<td>选择</td>
+						</tr>
+						<tbody id="deptDatas">
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</form>
 	</div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
+
+        $.ajax({
+            url:'/system/dept/json',
+            type: 'get',
+            data: {},
+            success: function (result) {
+
+                $("#deptDatas").empty();
+
+                var depts = '';
+
+                $.each(result.depts, function (index, value) {
+
+                    depts += '<tr><td>' + (index + 1) + '</td><td>'
+                        + value.deptName + '</td><td><input type="checkbox" name = "deptIds" value = "'
+                        + value.deptId + '" /></td></tr>';
+                });
+
+                $("#deptDatas").append(depts);
+            }
+        });
+
 		var prefix = ctx + "bus/rule"
 		$("#form-rule-add").validate({
 			rules:{
