@@ -38,8 +38,15 @@ public class ScoreRecord extends BaseEntity
 	private String ruleTypeName;
 	private String ruleName;
 	private int deleteFlag;
+	private int score;
 
+	public int getScore() {
+		return score;
+	}
 
+	public void setScore(int score) {
+		this.score = score;
+	}
 
 	public String getRuleTypeId() {
 		return ruleTypeId;

@@ -106,7 +106,7 @@ public class RuleServiceImpl implements IRuleService
 		int updateRule = ruleMapper.updateRule(rule);
 	    int insertRuleDept = ruleDeptMapper.insertRuleDept(ruleDeptList);
 
-		return deleteNum & updateRule & insertRuleDept ;
+		return updateRule ;
 	}
 
 	/**
@@ -124,6 +124,11 @@ public class RuleServiceImpl implements IRuleService
 	@Override
 	public List<Rule> selectRuleByTypeId(String ruleTypeId) {
 		return ruleMapper.selectRuleByTypeId(ruleTypeId);
+	}
+
+	@Override
+	public List<Rule> selectUserRules(String userId) {
+		return ruleMapper.selectUserRules(userId);
 	}
 
 }

@@ -47,8 +47,8 @@
     </div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
-		console.log(ctx)
-        $(function () {
+
+
 			var prefix = ctx + "bus/rule";
 
 			var ruleId = $("#ruleId").val();
@@ -59,7 +59,9 @@
 				data: {},
 				success: function(result) {
 					if (result) {
+
 						console.log(result)
+
 						$.each(result.checkDepts, function (index, value) {
 							$("#deptDatas").append('<tr><td>' + (index + 1) + '</td><td>' + value.deptName
 									+ '</td><td><input type="checkbox" value="' + value.deptId
@@ -84,12 +86,11 @@
 				}
 			});
 
-			function submitHandler() {
-				if ($.validate.form()) {
-					$.operate.save(prefix + "/edit", $('#form-rule-edit').serialize());
-				}
-			}
-		})
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-rule-edit').serialize());
+            }
+        }
 	</script>
 </body>
 </html>

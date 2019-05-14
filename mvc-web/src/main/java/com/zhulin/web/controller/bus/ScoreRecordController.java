@@ -88,7 +88,9 @@ public class ScoreRecordController extends BaseController
 	@GetMapping("/add")
 	public String add(Model model)
 	{
-	    List<Rule> rules = ruleService.selectRuleList(new Rule());
+		String userId = String.valueOf(ShiroUtils.getUserId());
+
+	    List<Rule> rules = ruleService.selectUserRules(userId);
 	    List<SysUser> sysUsers = sysUserService.selectUserList(new SysUser());
 
 		model.addAttribute("sysUsers", sysUsers);
@@ -116,10 +118,12 @@ public class ScoreRecordController extends BaseController
 	@GetMapping("/edit/{scoreRecordId}")
 	public String edit(@PathVariable("scoreRecordId") String scoreRecordId, ModelMap mmap, Model model)
 	{
+		String userId = String.valueOf(ShiroUtils.getUserId());
+
 		ScoreRecord scoreRecord = scoreRecordService.selectScoreRecordById(scoreRecordId);
 		mmap.put("scoreRecord", scoreRecord);
 
-		List<Rule> rules = ruleService.selectRuleList(new Rule());
+		List<Rule> rules = ruleService.selectUserRules(userId);
 		List<SysUser> sysUsers = sysUserService.selectUserList(new SysUser());
 
 		model.addAttribute("sysUsers", sysUsers);

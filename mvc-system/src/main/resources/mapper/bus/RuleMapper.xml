@@ -57,6 +57,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where R.rule_id = #{ruleId}
     </select>
 
+    <select id="selectUserRules" parameterType="Rule" resultMap="RuleResult">
+        SELECT
+        rule_id, rule_name, rule_type_name, score, RT.rule_type_id
+    FROM
+        jx_rule R
+            LEFT JOIN
+        jx_rule_type RT ON R.rule_type_id = RT.rule_type_id
+    WHERE
+        rule_id IN (SELECT
+                rule_id
+            FROM
+                jx_rule_dept
+            WHERE
+                dept_id IN (SELECT
+                        dept_id
+                    FROM
+                        sys_user
+                    WHERE
+                        user_id = #{userId}))
+    </select>
+
     <select id="selectRuleByTypeId" parameterType="String" resultMap="RuleResult">
         <include refid="selectRuleVo"/>
         where RP.rule_type_id = #{ruleTypeId}
