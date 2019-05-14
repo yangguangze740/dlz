@@ -126,6 +126,9 @@
                             },
                 			"phonenumber": function() {
                                 return $.common.trim($("#phonenumber").val());
+                            },
+                            "userNumber": function() {
+                                return $("#userNumber").val();
                             }
                         },
                         dataFilter: function (data, type) {
@@ -140,7 +143,10 @@
                 },
         		"phonenumber":{
                 	remote: "手机号码已经存在"
-        		}
+        		},
+                "userNumber":{
+                    remote: "工号已经存在"
+                }
             },
         	submitHandler:function(form){
         		edit();
