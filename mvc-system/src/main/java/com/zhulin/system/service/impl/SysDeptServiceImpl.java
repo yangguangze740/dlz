@@ -264,7 +264,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     @Override
     public List<SysDept> selectDeptAll(SysDept sysDept) {
-        return deptMapper.selectDeptAll(sysDept);
+        return deptMapper.selectDeptList(sysDept);
     }
 
     @Override

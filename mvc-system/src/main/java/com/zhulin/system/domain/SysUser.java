@@ -86,6 +86,16 @@ public class SysUser extends BaseEntity
 
     private int userScore;
 
+    private int userNumber;
+
+    public int getUserNumber() {
+        return userNumber;
+    }
+
+    public void setUserNumber(int userNumber) {
+        this.userNumber = userNumber;
+    }
+
     public int getUserScore() {
         return userScore;
     }

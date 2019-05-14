@@ -100,9 +100,8 @@ public interface SysDeptMapper
      */
     public void updateDeptStatus(SysDept dept);
 
-    List<SysDept> selectDeptAll(SysDept sysDept);
 
-    List<SysDept> selectCheckRules(String ruleId);
+    public List<SysDept> selectCheckRules(String ruleId);
 
-    List<SysDept> uncheckRules(String ruleId);
+    public List<SysDept> uncheckRules(String ruleId);
 }

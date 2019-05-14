@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="modifyUserId"    column="modify_user_id"    />
         <result property="createTime"    column="createTime"    />
         <result property="modifyTime"    column="modify_time"    />
+        <result property="score"    column="score"    />
     </resultMap>
 	
 	<sql id="selectScoreRecordVo">
@@ -24,7 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         user_name,
         rule_type_name,
         rule_name,
-        operator_user_name
+        operator_user_name,
+        A.score
     FROM
         jx_score_record SR
             LEFT JOIN

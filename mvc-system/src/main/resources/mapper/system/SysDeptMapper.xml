@@ -21,14 +21,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="updateBy"   column="update_by"   />
 		<result property="updateTime" column="update_time" />
 	</resultMap>
-	
-	<sql id="selectDeptAll">
-        select dept_id,dept_name
-        from sys_dept
+
+
+	<sql id="selectDeptVo">
+        select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status, d.del_flag, d.create_by, d.create_time
+        from sys_dept d
     </sql>
 
-	<sql id="selectCheckRules">
-         SELECT
+	<select id="selectRoleDeptTree" parameterType="Long" resultType="String">
+		select concat(d.dept_id, d.dept_name) as dept_name
+		from sys_dept d
+			left join sys_role_dept rd on d.dept_id = rd.dept_id
+		where d.del_flag = '0' and rd.role_id = #{roleId}
+		order by d.parent_id, d.order_num
+	</select>
+    
+	<select id="selectCheckRules" parameterType="SysDept" resultMap="SysDeptResult">
+		SELECT
             dept_id, dept_name
         FROM
             sys_dept
@@ -39,10 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                     jx_rule_dept
                 WHERE
                     rule_id = #{ruleId})
-    </sql>
+	</select>
 
-	<sql id="uncheckRules">
-         SELECT
+	<select id="uncheckRules" parameterType="SysDept" resultMap="SysDeptResult">
+		SELECT
             dept_id, dept_name
         FROM
             sys_dept
@@ -53,19 +62,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                     jx_rule_dept
                 WHERE
                     rule_id = #{ruleId})
-    </sql>
-
-	<sql id="selectDeptVo">
-        select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader, d.phone, d.email, d.status, d.del_flag, d.create_by, d.create_time
-        from sys_dept d
-    </sql>
-    
-	<select id="selectRoleDeptTree" parameterType="Long" resultType="String">
-		select concat(d.dept_id, d.dept_name) as dept_name
-		from sys_dept d
-			left join sys_role_dept rd on d.dept_id = rd.dept_id
-		where d.del_flag = '0' and rd.role_id = #{roleId}
-		order by d.parent_id, d.order_num
 	</select>
 	
 	<select id="selectDeptList" parameterType="SysDept" resultMap="SysDeptResult">

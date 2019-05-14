@@ -60,4 +60,6 @@ public interface RuleMapper
 	public int deleteRuleByIds(String[] ruleIds);
 
     List<Rule> selectRuleByTypeId(String ruleTypeId);
+
+    List<Rule> selectUserRules(String userId);
 }
