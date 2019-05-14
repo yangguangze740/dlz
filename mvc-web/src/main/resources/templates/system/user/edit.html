@@ -111,8 +111,7 @@
                         dataFilter: function (data, type) {
                         	return $.validate.unique(data);
                         }
-                    }
-        		},
+                    },
         		phonenumber:{
         			required:true,
         			isPhone:true,
@@ -126,9 +125,6 @@
                             },
                 			"phonenumber": function() {
                                 return $.common.trim($("#phonenumber").val());
-                            },
-                            "userNumber": function() {
-                                return $("#userNumber").val();
                             }
                         },
                         dataFilter: function (data, type) {

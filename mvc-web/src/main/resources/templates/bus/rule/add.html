@@ -44,6 +44,8 @@
     <div th:include="include::footer"></div>
     <script type="text/javascript">
 
+        var prefix = ctx + "bus/rule";
+
         $.ajax({
             url: '/system/dept/json',
             type: 'get',
