@@ -53,5 +53,5 @@ public interface IRuleService
 
     List<Rule> selectRuleByTypeId(String ruleTypeId);
 
-    List<Rule> selectUserRules(String userId);
+    List<Rule> selectUserRules(long userId);
 }

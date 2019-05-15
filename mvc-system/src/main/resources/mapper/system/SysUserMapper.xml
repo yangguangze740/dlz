@@ -83,6 +83,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		${params.dataScope}
 	</select>
 
+	<select id="selectCommonUsers" parameterType="SysUser" resultMap="SysUserResult">
+		SELECT
+			user_id,
+			u.dept_id,
+			login_name,
+			user_name,
+			phonenumber,
+			password,
+			d.dept_name,
+			u.user_score,
+			u.user_number,
+			u.create_time
+		FROM
+			sys_user u
+				LEFT JOIN
+			sys_dept d ON u.dept_id = d.dept_id
+		WHERE
+			u.dept_id = #{deptId}
+	</select>
+
 	<select id="selectUserByDeptId" parameterType="String" resultMap="SysUserResult">
 		<include refid="selectUserVo"/>
 		where u.dept_id = #{deptId}

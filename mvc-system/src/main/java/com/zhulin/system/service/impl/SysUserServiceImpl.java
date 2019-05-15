@@ -56,15 +56,17 @@ public class SysUserServiceImpl implements ISysUserService
     /**
      * 根据条件分页查询用户对象
      * 
-     * @param user 用户信息
-     * 
+     *
+     * @param sysUser 用户信息
+     *
+     * @param sysUser
      * @return 用户信息集合信息
      */
     @Override
     @DataScope(tableAlias = "u")
-    public List<SysUser> selectUserList(SysUser user)
+    public List<SysUser> selectUserList(SysUser sysUser)
     {
-        return userMapper.selectUserList(user);
+        return  userMapper.selectUserList(sysUser);
     }
 
     /**
@@ -449,5 +451,17 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public List<SysUser> selectUserByDeptId(String deptId) {
         return userMapper.selectUserByDeptId(deptId);
+    }
+
+    @Override
+    public List<SysUser> selectCommomUsers(long deptId, SysUser user, long userId) {
+
+        if(userId == 1){
+            return userMapper.selectUserList(user);
+        }
+        else {
+            return userMapper.selectCommonUsers(deptId);
+        }
+
     }
 }

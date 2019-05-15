@@ -4,13 +4,8 @@ import java.util.List;
 
 import com.zhulin.bus.domain.Accident;
 import com.zhulin.bus.service.IAccidentService;
-import com.zhulin.bus.service.IAccidentTypeService;
-import com.zhulin.bus.service.IPunishService;
 import com.zhulin.framework.util.ShiroUtils;
-import com.zhulin.system.domain.SysDept;
 import com.zhulin.system.domain.SysUser;
-import com.zhulin.system.service.ISysDeptService;
-import com.zhulin.system.service.ISysPostService;
 import com.zhulin.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;

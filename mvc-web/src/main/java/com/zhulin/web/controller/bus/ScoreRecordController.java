@@ -2,11 +2,8 @@ package com.zhulin.web.controller.bus;
 
 import java.util.List;
 
-import com.zhulin.bus.domain.Accident;
 import com.zhulin.bus.domain.Rule;
-import com.zhulin.bus.service.IAccidentService;
 import com.zhulin.bus.service.IRuleService;
-import com.zhulin.bus.service.IRuleTypeService;
 import com.zhulin.framework.util.ShiroUtils;
 import com.zhulin.system.domain.SysUser;
 import com.zhulin.system.service.ISysUserService;
@@ -88,7 +85,7 @@ public class ScoreRecordController extends BaseController
 	@GetMapping("/add")
 	public String add(Model model)
 	{
-		String userId = String.valueOf(ShiroUtils.getUserId());
+		long userId = ShiroUtils.getUserId();
 
 	    List<Rule> rules = ruleService.selectUserRules(userId);
 	    List<SysUser> sysUsers = sysUserService.selectUserList(new SysUser());
@@ -118,7 +115,7 @@ public class ScoreRecordController extends BaseController
 	@GetMapping("/edit/{scoreRecordId}")
 	public String edit(@PathVariable("scoreRecordId") String scoreRecordId, ModelMap mmap, Model model)
 	{
-		String userId = String.valueOf(ShiroUtils.getUserId());
+		long userId = ShiroUtils.getUserId();
 
 		ScoreRecord scoreRecord = scoreRecordService.selectScoreRecordById(scoreRecordId);
 		mmap.put("scoreRecord", scoreRecord);

@@ -77,6 +77,11 @@ public class ShiroUtils
         return getSysUser().getLoginName();
     }
 
+    public static Long getDeptId()
+    {
+        return getSysUser().getDeptId();
+    }
+
     public static String getIp()
     {
         return getSubject().getSession().getHost();

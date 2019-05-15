@@ -107,4 +107,6 @@ public interface SysUserMapper
     public SysUser checkEmailUnique(String email);
 
     List<SysUser> selectUserByDeptId(String deptId);
+
+    List<SysUser> selectCommonUsers(long deptId);
 }

@@ -127,8 +127,14 @@ public class RuleServiceImpl implements IRuleService
 	}
 
 	@Override
-	public List<Rule> selectUserRules(String userId) {
-		return ruleMapper.selectUserRules(userId);
+	public List<Rule> selectUserRules(long userId) {
+
+		if(userId == 1){
+			return ruleMapper.selectRuleList(new Rule());
+		}
+		else {
+			return ruleMapper.selectUserRules(userId);
+		}
 	}
 
 }

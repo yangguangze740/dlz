@@ -13,10 +13,11 @@ public interface ISysUserService
     /**
      * 根据条件分页查询用户对象
      * 
-     * @param user 用户信息
+     *
+     * @param sysUser
      * @return 用户信息集合信息
      */
-    public List<SysUser> selectUserList(SysUser user);
+    public List<SysUser> selectUserList(SysUser sysUser);
 
     /**
      * 通过用户名查询用户
@@ -158,4 +159,6 @@ public interface ISysUserService
     public int changeStatus(SysUser user);
 
     List<SysUser> selectUserByDeptId(String deptId);
+
+    List<SysUser> selectCommomUsers(long deptId, SysUser user, long userId);
 }

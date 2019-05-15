@@ -58,10 +58,11 @@ public class RuleController extends BaseController
 	@RequiresPermissions("bus:rule:list")
 	@PostMapping("/list")
 	@ResponseBody
-	public TableDataInfo list(Rule rule)
+	public TableDataInfo list()
 	{
 		startPage();
-        List<Rule> list = ruleService.selectRuleList(rule);
+		long userId = ShiroUtils.getUserId();
+        List<Rule> list = ruleService.selectUserRules(userId);
 		return getDataTable(list);
 	}
 	
