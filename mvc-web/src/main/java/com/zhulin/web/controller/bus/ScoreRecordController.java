@@ -60,8 +60,11 @@ public class ScoreRecordController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(ScoreRecord scoreRecord)
 	{
+		long userId = ShiroUtils.getUserId();
+		long deptId = ShiroUtils.getDeptId();
+
 		startPage();
-        List<ScoreRecord> list = scoreRecordService.selectScoreRecordList(scoreRecord);
+        List<ScoreRecord> list = scoreRecordService.selectScoreRecordList(scoreRecord,userId,deptId);
 		return getDataTable(list);
 	}
 	
@@ -74,7 +77,10 @@ public class ScoreRecordController extends BaseController
     @ResponseBody
     public AjaxResult export(ScoreRecord scoreRecord)
     {
-    	List<ScoreRecord> list = scoreRecordService.selectScoreRecordList(scoreRecord);
+		long userId = ShiroUtils.getUserId();
+		long deptId = ShiroUtils.getDeptId();
+
+    	List<ScoreRecord> list = scoreRecordService.selectScoreRecordList(scoreRecord, userId, deptId);
         ExcelUtil<ScoreRecord> util = new ExcelUtil<ScoreRecord>(ScoreRecord.class);
         return util.exportExcel(list, "scoreRecord");
     }
@@ -86,9 +92,10 @@ public class ScoreRecordController extends BaseController
 	public String add(Model model)
 	{
 		long userId = ShiroUtils.getUserId();
+		String deptId = String.valueOf(ShiroUtils.getDeptId());
 
 	    List<Rule> rules = ruleService.selectUserRules(userId);
-	    List<SysUser> sysUsers = sysUserService.selectUserList(new SysUser());
+	    List<SysUser> sysUsers = sysUserService.selectUsersByDeptId(deptId, userId);
 
 		model.addAttribute("sysUsers", sysUsers);
 	    model.addAttribute("rules", rules);

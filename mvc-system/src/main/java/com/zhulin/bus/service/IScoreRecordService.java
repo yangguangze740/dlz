@@ -23,9 +23,11 @@ public interface IScoreRecordService
      * 查询规则记录管理列表
      * 
      * @param scoreRecord 规则记录管理信息
-     * @return 规则记录管理集合
+     * @param userId
+	 * @param deptId
+	 * @return 规则记录管理集合
      */
-	public List<ScoreRecord> selectScoreRecordList(ScoreRecord scoreRecord);
+	public List<ScoreRecord> selectScoreRecordList(ScoreRecord scoreRecord, long userId, long deptId);
 	
 	/**
      * 新增规则记录管理

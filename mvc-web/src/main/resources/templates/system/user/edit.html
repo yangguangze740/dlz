@@ -86,68 +86,70 @@
 	<script th:src="@{/ajax/libs/select/select2.js}"></script>
 	<script>
         $("#form-user-edit").validate({
-        	rules:{
-        		userName:{
-        			required:true,
-        		},
-        		deptName:{
-        			required:true,
-        		},
-        		email:{
-        			required:true,
+            rules:{
+                userName:{
+                    required:true,
+                },
+                deptName:{
+                    required:true,
+                },
+                email:{
+                    required:true,
                     email:true,
                     remote: {
                         url: ctx + "system/user/checkEmailUnique",
                         type: "post",
                         dataType: "json",
                         data: {
-                        	"userId": function() {
+                            "userId": function() {
                                 return $("#userId").val();
                             },
-                			"email": function() {
+                            "email": function() {
                                 return $.common.trim($("#email").val());
                             }
                         },
                         dataFilter: function (data, type) {
-                        	return $.validate.unique(data);
+                            return $.validate.unique(data);
                         }
-                    },
-        		phonenumber:{
-        			required:true,
-        			isPhone:true,
+                    }
+                },
+                phonenumber:{
+                    required:true,
+                    isPhone:true,
                     remote: {
                         url: ctx + "system/user/checkPhoneUnique",
                         type: "post",
                         dataType: "json",
                         data: {
-                        	"userId": function() {
-                        		return $("#userId").val();
+                            "userId": function() {
+                                return $("#userId").val();
                             },
-                			"phonenumber": function() {
+                            "phonenumber": function() {
                                 return $.common.trim($("#phonenumber").val());
                             }
                         },
                         dataFilter: function (data, type) {
-                        	return $.validate.unique(data);
+                            return $.validate.unique(data);
                         }
                     }
-        		},
-        	},
-        	messages: {
-        		"email": {
-                    remote: "Email已经存在"
                 },
-        		"phonenumber":{
-                	remote: "手机号码已经存在"
-        		},
-                "userNumber":{
-                    remote: "工号已经存在"
-                }
             },
-        	submitHandler:function(form){
-        		edit();
-        	}
-        });
+                messages: {
+                    "email": {
+                        remote: "Email已经存在"
+                    },
+                    "phonenumber": {
+                        remote: "手机号码已经存在"
+                    },
+                    "userNumber": {
+                        remote: "工号已经存在"
+                    }
+                },
+                submitHandler:function(form){
+                    edit();
+                }
+            });
+
         
         function submitHandler() {
 	        if ($.validate.form()) {

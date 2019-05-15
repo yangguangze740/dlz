@@ -58,5 +58,6 @@ public interface ScoreRecordMapper
      * @return 结果
      */
 	public int deleteScoreRecordByIds(String[] scoreRecordIds);
-	
+
+    List<ScoreRecord> selectScoreRecordByDeptId(long deptId);
 }

@@ -36,6 +36,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             LEFT JOIN
         jx_rule A ON A.rule_id = SR.rule_id
 </sql>
+    <select id="selectScoreRecordByDeptId" parameterType="ScoreRecord" resultMap="ScoreRecordResult">
+        SELECT
+            score_record_id,
+            SR.user_id,
+            user_name,
+            rule_type_name,
+            rule_name,
+            operator_user_name,
+            A.score
+        FROM
+            jx_score_record SR
+                LEFT JOIN
+            sys_user U ON U.user_id = SR.user_id
+                LEFT JOIN
+            jx_rule_type AP ON AP.rule_type_id = SR.rule_type_Id
+                LEFT JOIN
+            jx_rule A ON A.rule_id = SR.rule_id
+        WHERE
+            SR.user_id IN (SELECT
+                    user_id
+                FROM
+                    sys_user
+                WHERE
+                    dept_id = #{deptId)
+    </select>
 	
     <select id="selectScoreRecordList" parameterType="ScoreRecord" resultMap="ScoreRecordResult">
         <include refid="selectScoreRecordVo"/>

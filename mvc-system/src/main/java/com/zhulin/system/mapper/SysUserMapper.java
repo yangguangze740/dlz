@@ -109,4 +109,6 @@ public interface SysUserMapper
     List<SysUser> selectUserByDeptId(String deptId);
 
     List<SysUser> selectCommonUsers(long deptId);
+
+    List<SysUser> selectUsersById(long userId);
 }

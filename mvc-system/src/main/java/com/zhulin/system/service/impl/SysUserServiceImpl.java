@@ -450,7 +450,8 @@ public class SysUserServiceImpl implements ISysUserService
 
     @Override
     public List<SysUser> selectUserByDeptId(String deptId) {
-        return userMapper.selectUserByDeptId(deptId);
+
+            return userMapper.selectUserByDeptId(deptId);
     }
 
     @Override
@@ -463,5 +464,20 @@ public class SysUserServiceImpl implements ISysUserService
             return userMapper.selectCommonUsers(deptId);
         }
 
+    }
+
+    @Override
+    public List<SysUser> selectUsersById(long userId) {
+        return userMapper.selectUsersById(userId);
+    }
+
+    @Override
+    public List<SysUser> selectUsersByDeptId(String deptId, long userId) {
+        if(userId == 1){
+            return userMapper.selectUserList(new SysUser());
+        }
+        else {
+            return userMapper.selectUserByDeptId(deptId);
+        }
     }
 }

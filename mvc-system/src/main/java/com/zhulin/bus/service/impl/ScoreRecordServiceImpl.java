@@ -2,12 +2,12 @@ package com.zhulin.bus.service.impl;
 
 import java.util.List;
 
-import com.zhulin.bus.domain.Accident;
 import com.zhulin.bus.domain.Rule;
-import com.zhulin.bus.mapper.AccidentMapper;
 import com.zhulin.bus.mapper.RuleMapper;
 import com.zhulin.common.utils.PrimaryKeyUtil;
+import com.zhulin.system.domain.SysDept;
 import com.zhulin.system.domain.SysUser;
+import com.zhulin.system.mapper.SysDeptMapper;
 import com.zhulin.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +31,8 @@ public class ScoreRecordServiceImpl implements IScoreRecordService
 	private SysUserMapper sysUserMapper;
 	@Autowired
 	private RuleMapper ruleMapper;
+	@Autowired
+	private SysDeptMapper sysDeptMapper;
 
 	/**
      * 查询规则记录管理信息
@@ -48,12 +50,20 @@ public class ScoreRecordServiceImpl implements IScoreRecordService
      * 查询规则记录管理列表
      * 
      * @param scoreRecord 规则记录管理信息
-     * @return 规则记录管理集合
+     * @param userId
+	 * @param deptId
+	 * @return 规则记录管理集合
      */
 	@Override
-	public List<ScoreRecord> selectScoreRecordList(ScoreRecord scoreRecord)
+	public List<ScoreRecord> selectScoreRecordList(ScoreRecord scoreRecord, long userId, long deptId)
 	{
-	    return scoreRecordMapper.selectScoreRecordList(scoreRecord);
+
+		if(userId == 1){
+			return scoreRecordMapper.selectScoreRecordList(scoreRecord);
+		}
+		else {
+			return scoreRecordMapper.selectScoreRecordByDeptId(deptId);
+		}
 	}
 	
     /**

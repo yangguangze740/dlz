@@ -161,4 +161,8 @@ public interface ISysUserService
     List<SysUser> selectUserByDeptId(String deptId);
 
     List<SysUser> selectCommomUsers(long deptId, SysUser user, long userId);
+
+    List<SysUser> selectUsersById(long userId);
+
+    List<SysUser> selectUsersByDeptId(String deptId, long userId);
 }
