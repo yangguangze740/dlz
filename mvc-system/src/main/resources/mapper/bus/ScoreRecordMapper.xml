@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 FROM
                     sys_user
                 WHERE
-                    dept_id = #{deptId)
+                    dept_id = #{deptId})
     </select>
 	
     <select id="selectScoreRecordList" parameterType="ScoreRecord" resultMap="ScoreRecordResult">
